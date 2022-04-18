@@ -1,5 +1,9 @@
 # Proyecto2_BD
-- Proyecto#2 del curso: Bases de datos
+Curso: Bases de datos 2022
+Integrantes: 
+       1) Christopher García 20541
+       2) Ma. Isabel Solano 20504
+       3) Gabriel Vicente 20498
 - Consistio en la creación de un sistema de películas que se conectara a una base de datos local y pudiera realizar diversas consultas.
 - Las opciones disponibles:
     1) Crear cuenta
