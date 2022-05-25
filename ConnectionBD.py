@@ -16,7 +16,7 @@ import random
 
 #--------------------------------------------------- IMPORTANTE ---------------------------------------------------
 #Cambiar estos valores para poder conectarse a la base de datos local
-connect_base = psycopg2.connect("host=localhost dbname=Proyecto2C user=postgres port=5432 password=1234")
+connect_base = psycopg2.connect("host=localhost dbname=Proyecto_3 user=postgres port=5432 password=Basededatos2022")
 cursor = connect_base.cursor(cursor_factory=psycopg2.extras.DictCursor)
 #-------------------------------------------------------------------------------------------------------------------
 
@@ -27,9 +27,9 @@ def Upload_Cuenta(Correo, Contra, TipoCuenta, IngresoF, IngresoH):
   cursor.execute(Query, DatosC)
   connect_base.commit() 
   
-def Upload_Perfiles(CodigoP, Num, Nombre_P):
-  DatosP = (CodigoP, Num, Nombre_P, True)
-  Query = "INSERT INTO Perfiles VALUES (%s, %s, %s, %s)"
+def Upload_Perfiles(CodigoP, Num, Nombre_P, activo):
+  DatosP = (CodigoP, Num, Nombre_P, True, activo)
+  Query = "INSERT INTO Perfiles VALUES (%s, %s, %s, %s, %s)"
   cursor.execute(Query, DatosP)
   connect_base.commit() 
   
@@ -310,6 +310,12 @@ def Mod_Usuarios(nueva_sus, correo):
   queryMU = "UPDATE cuenta SET Tipo = %s WHERE correo = %s"
   cursor.execute(queryMU, DatosMU)
   connect_base.commit()
+  
+def Mod_active(isActive, perfil):
+  DatosMU = (isActive, perfil,)
+  queryMU = "UPDATE perfiles SET activo = %s WHERE nombre_perfil = %s"
+  cursor.execute(queryMU, DatosMU)
+  connect_base.commit()
 
 def Delete_Pelicula(id):
   DatosDP = (id,)
@@ -353,6 +359,12 @@ def Get_Cuenta(correo):
   cuenta = cursor.fetchone()
   connect_base.commit()
   return cuenta
+
+def EndSesion(PerfilActual):
+  Datos = (PerfilActual, )
+  query = "UPDATE Perfiles SET activo = FALSE WHERE Nombre_Perfil = %s"
+  cursor.execute(query, Datos)
+  connect_base.commit()
 
 def UpdateIntentos(contadorN, fecha, correo):
   Datos = (contadorN, fecha, correo,)
@@ -475,6 +487,17 @@ def Get_PerfilIn(correo):
     return data
   else:
     return data['nombre_perfil']
+  
+def Get_PerfilActive(correo, PerfilActual):
+  Dato = (correo, PerfilActual,)
+  query = "SELECT * FROM perfiles p JOIN cuenta_perfiles cp ON cp.codigo_perfil = p.codigo AND correo_cuenta = %s WHERE p.Nombre_Perfil = %s"
+  cursor.execute(query, Dato)
+  data = cursor.fetchone()
+  connect_base.commit()
+  if data == None:
+    return data
+  else:
+    return data['activo']
 
 def Get_PerfilesInfo(correo):
   Dato = (correo,)

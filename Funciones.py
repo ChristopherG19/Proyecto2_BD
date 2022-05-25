@@ -338,7 +338,7 @@ def ManejoPerfiles(correo):
                 while(Verifica):
                   Nombre = input("Nombre del nuevo perfil: ")
                   if(Get_perfilesName(correo, Nombre) == None):
-                    Upload_Perfiles(CodigoP, cant2+1, Nombre)
+                    Upload_Perfiles(CodigoP, cant2+1, Nombre, False)
                     Upload_CuentaPerfiles(correo, CodigoP)
                     inicio += 1
                     Verifica = False
@@ -376,7 +376,7 @@ def ManejoPerfiles(correo):
               while(Verifica):
                 Nombre = input("Nombre del nuevo perfil: ")
                 if(Get_perfilesName(correo, Nombre) == None):
-                  Upload_Perfiles(CodigoP, cant2+1, Nombre)
+                  Upload_Perfiles(CodigoP, cant2+1, Nombre, False)
                   Upload_CuentaPerfiles(correo, CodigoP)
                   inicio += 1
                   Verifica = False
@@ -399,14 +399,51 @@ def CambioPerfiles(correo, perfilAc):
   print("\nEl perfil actual de "+correo+" es "+ perfilAc+"\n")
   print("Perfiles disponibles")
   Get_PerfilesInfo(correo)
-  print("\nIngrese el codigo del perfil al que quiere cambiar\n")
-  opper = input("Codigo: ")
-  NombreCode = Get_PerfilCode(correo, opper)
-  if(NombreCode != None):
-    perfilActual = NombreCode
-  else: 
-    print("Lo sentimos perfil no encontrado o desactivado")
-    perfilActual = perfilAc
+  
+  verif = True
+  while verif:
+    print("\nIngrese el codigo del perfil al que quiere cambiar\n")
+    opper = input("Codigo: ")
+    NombreCode = Get_PerfilCode(correo, opper)
+    IsActive = Get_PerfilActive(correo, NombreCode)
+    
+    if(NombreCode != None and IsActive == False):
+      Mod_active(False, perfilAc)
+      perfilActual = NombreCode
+      Mod_active(True, perfilActual)
+      verif = False
+    elif (IsActive == True):
+      print("Lo sentimos, perfil en uso")
+    else: 
+      print("Lo sentimos perfil no encontrado o desactivado")
+      perfilActual = perfilAc
+  
+  return perfilActual
+
+def SeleccionPerfiles(correo):
+  
+  perfilActual = ""
+  perfilAc = Get_PerfilIn(correo) 
+  
+  print("\nEl perfil inicial de "+correo+" es "+ perfilAc+"\n")
+  print("Perfiles disponibles")
+  Get_PerfilesInfo(correo)
+  
+  verif = True
+  while verif:
+    print("\nIngrese el codigo del perfil con el que quiere ingresar\n")
+    opper = input("Codigo: ")
+    NombreCode = Get_PerfilCode(correo, opper)
+    IsActive = Get_PerfilActive(correo, NombreCode)
+    
+    if(NombreCode != None and IsActive == False):
+      perfilActual = NombreCode
+      verif = False
+    elif (IsActive == True):
+      print("Lo sentimos, perfil en uso")
+    else: 
+      print("Lo sentimos perfil no encontrado o desactivado")
+      perfilActual = perfilAc
   
   return perfilActual
   

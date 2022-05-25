@@ -47,9 +47,9 @@ while not Salir:
         #Se registra la fecha y hora en que se crea la cuenta
         Fecha = datetime.date(datetime.now())
         Hora = datetime.time(datetime.now())
-        Daton = input("Nombre del perfil inicial: ")
+        Daton = input("Nombre del perfil inicial: ")        
         Upload_Cuenta(Correo, Contra, TipoCuenta, Fecha, Hora)
-        Upload_Perfiles(CodigoP, 1, Daton)
+        Upload_Perfiles(CodigoP, 1, Daton, False)
         Upload_CuentaPerfiles(Correo, CodigoP)
         escritura_lenta("\n\t\t\tCuenta registrada exitosamente\n")
         Verificador = True  
@@ -68,11 +68,16 @@ while not Salir:
     #De estarlo se le permite al usuario ingresar y utilizar las opciones disponibles
     #De no ingresar correctamente se cuentan los intentos fallidos
     while not Verificador:
-      Correo, Contra = LoginCuenta() 
+      Correo, Contra = LoginCuenta()
+      
       if(LogIn(Correo, Contra) != None and LogIn(Correo, Contra) == True):
         escritura_lenta("Ingreso exitoso\n")
         ManejoPerfiles(Correo)
-        PerfilActual = Get_PerfilIn(Correo)
+        
+        perfilActivo = SeleccionPerfiles(Correo)
+
+        Mod_active(True,perfilActivo)
+        PerfilActual = perfilActivo
         Verificador = True
       elif(LogIn(Correo, Contra) == False):
         print("Cuenta desactivada, pruebe con otra\n")
@@ -140,6 +145,7 @@ while not Salir:
         
       elif (seleccion==8):
         escritura_lenta("Cerrar Sesion\n")
+        EndSesion(PerfilActual)
         verificador_menu = True
     
   #Opcion para ingresar como Administrador
