@@ -22,7 +22,6 @@ from ConnectionBD import *
 import time
 import sys
 import webbrowser
-from datetime import datetime
 
 #Diversidad de funciones utilizadas como programación defensiva y otras funciones del apartado de usuario
 
@@ -89,7 +88,7 @@ def SolicitudNum2():
   num = 0
   while not Verificador:
     try:
-      num = int(input("Opcion: "))
+      num = int(input("Opción: "))
       Verificador = True
     except ValueError:
       escritura_lenta("Error, ingrese opcion valida")
@@ -174,11 +173,11 @@ def LoginCuenta():
 def Check_Date(fecha):
   date = False
   try:
-    datetime.strptime(fecha, '%Y-%M-%D')
+    datetime.datetime.strptime(fecha, '%Y-%m-%d')
     date = fecha
   except:
-    print('Incorrect format\n')
-  return fecha
+    print('Formato Incorrecto\n')
+  return date
 
 def SearchP():
   Verificador = True
@@ -416,7 +415,7 @@ def SolicitudNum3(frase):
   num = 0
   while not Verificador:
     try:
-      num = int(input(f"{frase} : "))
+      num = int(input(f"{frase} "))
       Verificador = True
     except ValueError:
       print("Error, ingrese opcion valida")

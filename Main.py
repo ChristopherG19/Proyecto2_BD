@@ -9,7 +9,7 @@
     - Christopher García 20541
 '''
 
-#Import de diferentes librerías y otros archivos .py
+#Import de diferentes librerias y otros archivos .py
 from Funciones import *
 from ConnectionBD import *
 from Admins import *
@@ -19,7 +19,7 @@ from datetime import datetime
 Salir = False
 opcion = 0
 
-#Impresión menú principal y toma de decisión
+#Impresion menu principal y toma de decision
 while not Salir:
   escritura_lenta("\n\t\t\t\tMenu\n")
   escritura_lenta("1) Crear cuenta")
@@ -38,7 +38,7 @@ while not Salir:
     Contra = ""
     TipoCuenta = ""
     
-    #Se verifica si los datos son válidos y se procede a crear la cuenta
+    #Se verifica si los datos son validos y se procede a crear la cuenta
     while not Verificador:
       Correo, Contra, TipoCuenta = CrearCuenta()
       if (Correo != None and Contra != None and TipoCuenta != None and Get_Cuenta(Correo) == None):
@@ -64,7 +64,7 @@ while not Salir:
     Contra = ""
     PerfilActual = ""
     Contador = 0
-    #Se verifica si la cuenta está en la base de datos 
+    #Se verifica si la cuenta esta en la base de datos 
     #De estarlo se le permite al usuario ingresar y utilizar las opciones disponibles
     #De no ingresar correctamente se cuentan los intentos fallidos
     while not Verificador:
@@ -95,7 +95,7 @@ while not Salir:
       print("\n________________________________________\n")
       print("Elija la accion a realizar\n")
       print("1) Mostrar recomendaciones")
-      print("2) Mostrar películas")
+      print("2) Mostrar peliculas")
       print("3) Mostrar favoritos")
       print("4) Mostrar peliculas sin terminar")
       print("5) Mostrar peliculas vistas")
@@ -112,7 +112,7 @@ while not Salir:
         recomendaciones(Get_CodigoPerfil(Correo, PerfilActual))
         
       elif (seleccion==2):
-        escritura_lenta("Mostrando películas\n")
+        escritura_lenta("Mostrando peliculas\n")
         ver_peliculas(Correo, PerfilActual)
 
       elif (seleccion==3):
@@ -147,7 +147,7 @@ while not Salir:
     print()
     menu_admin_L1 = True
     while (menu_admin_L1):
-      #ingreso de sesión
+      #ingreso de sesion
       verificador = True
       usuario = input('Usuario: ')
       contra = getpass('Contraseña: ')
@@ -155,7 +155,7 @@ while not Salir:
       md5_hash = hashlib.md5()
       md5_hash.update(contra.encode())
       contra = md5_hash.hexdigest()
-      #Se verifica que el usuario administrador esté en la base de datos y luego se le permita entrar
+      #Se verifica que el usuario administrador este en la base de datos y luego se le permita entrar
       while (verificador):
         if(LogInAdmin(usuario, contra) != None):
           Nombre = LogInAdmin(usuario,contra)
@@ -166,8 +166,8 @@ while not Salir:
           #inicio del ciclo while para mostrar opciones
           menu_admin_L2 = True
           while (menu_admin_L2):          
-            #impresión de opciones
-            print('\nIngrese el número de la opción que desea realizar:')
+            #impresion de opciones
+            print('\nIngrese el numero de la opcion que desea realizar:')
             print('__________________________________________________________')
             print('\n1) Agregar contenido')
             print('2) Modificar contenido')
@@ -181,7 +181,7 @@ while not Salir:
             print('10) Modificar anuncios')
             print('11) Eliminar anuncios')
             print('12) Reportes')
-            print('\n13) Cerrar sesión')
+            print('\n13) Cerrar sesion')
             print('__________________________________________________________')
             print()
 
@@ -234,19 +234,18 @@ while not Salir:
               EliminarAnuncios()
 
             elif (op1 == '12'):
-              #Agregue esto
-              ver1 = True
-              while (ver1):
+              ver_op12 = True
+              while(ver_op12):
                 print('\n-------------------- Reportes --------------------')
-                print('Ingrese el número de la opción que desea realizar:')
+                print('Ingrese el numero de la opcion que desea realizar:')
                 print('__________________________________________________________')
                 print('1) Top 10 generos mas vistos y minutos consumidos')
                 print('2) Cantidad de reproducciones por genero y tipo de cuenta')
                 print('3) Top 10 actores y directores de peliculas mas vistas por cuentas estandar y avanzadas')
-                print('4) Cantidad cuentas avanzadas creadas en los últimos 6 meses')
+                print('4) Cantidad cuentas avanzadas creadas en los ultimos 6 meses')
                 print('5) Hora pico del servicio')
                 print('6) Anuncios vistos por cuentas gratis')
-                print('7) Salir') 
+                print('7) Salir')
                 print('__________________________________________________________\n')
                 op12 = SolicitudNum2()
 
@@ -263,10 +262,10 @@ while not Salir:
                 elif op12 == 6:
                   query_reporte_6()
                 elif op12 == 7:
-                  ver1 = False
-    
+                  ver_op12 = False
+
             elif (op1 == '13'):
-              #Cerrar sesión
+              #Cerrar sesion
               usuario = ""
               contra = ""
               menu_admin_L1 = False
@@ -275,7 +274,6 @@ while not Salir:
 
         #Si el usuario administrador no se registra correctamente se le indica si quiere seguir intentando
         else:
-          print()
           escritura_lenta("Usuario o contraseña incorrecta")
           escritura_lenta('Desea probar nuevamente? ')
           op = input('(y/n): ')
