@@ -1,4 +1,4 @@
-# Proyecto2_BD
+# Proyecto 2 y 3 BD
 Curso: Bases de datos 2022
 - Integrantes: 
 -      Christopher García 20541
