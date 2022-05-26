@@ -457,3 +457,22 @@ def SolicitudNum3(frase):
     except ValueError:
       print("Error, ingrese opcion valida")
   return num
+
+def Agregar_Admins():
+  veri = True
+  while(veri):
+    try:
+      codigoAd = GenerarCodigo2('administradores')
+      nombreAd = input("Ingrese nombre del nuevo administrador: ")
+      #Encriptación de la contraseña
+      contraAd = getpass('Ingrese password del nuevo administrador:')
+      #print(Contra)
+      md5_hash = hashlib.md5()
+      md5_hash.update(contraAd.encode())
+      #print(md5_hash.hexdigest())
+      contraAd = md5_hash.hexdigest()    
+      Upload_Administradores(codigoAd, nombreAd, contraAd)
+      veri = False
+    except ValueError:
+      print("Error, ingrese datos validos")
+

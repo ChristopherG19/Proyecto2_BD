@@ -186,8 +186,9 @@ while not Salir:
             print('\n9) Agregar anuncios')
             print('10) Modificar anuncios')
             print('11) Eliminar anuncios')
-            print('12) Reportes')
-            print('\n13) Cerrar sesion')
+            print('\n12) Reportes')
+            print('13) Agregar administradores')
+            print('\n14) Cerrar sesion')
             print('__________________________________________________________')
             print()
 
@@ -271,6 +272,8 @@ while not Salir:
                   ver_op12 = False
 
             elif (op1 == '13'):
+              Agregar_Admins()
+            elif (op1 == '14'):
               #Cerrar sesion
               usuario = ""
               contra = ""
