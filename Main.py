@@ -173,6 +173,7 @@ while not Salir:
           menu_admin_L2 = True
           while (menu_admin_L2):          
             #impresion de opciones
+            
             print('\nIngrese el numero de la opcion que desea realizar:')
             print('__________________________________________________________')
             print('\n1) Agregar contenido')
