@@ -12,6 +12,9 @@
 #librerias
 from getpass import getpass
 from logging import exception
+from pickle import TRUE
+from re import A
+from unittest.loader import VALID_MODULE_NAME
 from sympy import true
 from Funciones import *
 from ConnectionBD import *
@@ -1255,3 +1258,29 @@ def Modificaciones_Admin():
 
         except Exception as ex:
             escritura_lenta('Ingrese una respuesta valida\n')
+            
+def SimulacionOpera():
+      
+    ver = True
+    while(ver):
+        try:
+            print('\nPara la simulacion de operaciones ingrese los siguientes datos: ')
+            cant_visua = int(input('Cantidad de visualizaciones: '))
+            ver1 = True
+            fecha = ''
+            while(ver1):
+                fecha = input('Fecha (YYYY-MM-DD): ')
+                if (Check_Date(fecha)):
+                    #se puede continuar
+                    ver1 = False
+                else: 
+                    escritura_lenta('Ingrese una fecha valida')
+            ver = False
+                        
+        except ValueError:
+            print('Error, opcion invalida')  
+    
+    Generacion_visualizaciones(cant_visua, fecha)
+
+    
+    

@@ -476,3 +476,36 @@ def Agregar_Admins():
     except ValueError:
       print("Error, ingrese datos validos")
 
+def Gen_hora():
+
+  hora = random.randint(0,23)
+  min = random.randint(0,59)
+  seg = random.randint(0,59)
+  
+  if(hora >= 0 & hora < 10):
+    hora = str(hora).rjust(2, '0')
+  
+  if(min >= 0 & min < 10):
+    min = str(min).rjust(2, '0')
+    
+  if(seg >= 0 & seg < 10):
+    seg = str(seg).rjust(2, '0')
+    
+  hora_f = str(hora) + ':' + str(min) + ':' + str(seg)
+  
+  return hora_f
+  
+def Generacion_visualizaciones(cant_visua, fecha):
+  
+  for i in range(cant_visua):
+    Code_perfil_random = random.choice(Get_AllPerfiles())
+    Code_pelicula_random = random.choice(Get_AllMovies())
+    TiempoConsumido = Get_PeliTime(Code_pelicula_random) - random.randint(0,Get_PeliTime(Code_pelicula_random)-1)
+    Finish = random.choice([True, False])
+    hora = Gen_hora()
+    
+    Upload_ContenidoPerfil(Code_perfil_random, Code_pelicula_random, TiempoConsumido, Finish, fecha, hora)
+    
+    print(f"Visualizaciones insertadas ({i+1}/{cant_visua})")
+    
+  print("\nSimulacion completada exitosamente")

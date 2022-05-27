@@ -579,6 +579,17 @@ def Get_PerfilCode(correo, cod):
   else:
     return data['nombre_perfil']
   
+def Get_PeliTime(cod):
+  Dato = (cod,)
+  query = "SELECT * FROM peliculas p WHERE p.codigo = %s"
+  cursor.execute(query, Dato)
+  data = cursor.fetchone()
+  connect_base.commit()
+  if data == None:
+    return data
+  else:
+    return data['duracion']
+  
 def Get_PerfilCode2(correo, cod):
   Dato = (correo, cod,)
   query = "SELECT * FROM perfiles p JOIN cuenta_perfiles cp ON cp.codigo_perfil = p.codigo AND correo_cuenta = %s WHERE p.numerop = %s AND p.estado = 'TRUE'"
@@ -605,6 +616,26 @@ def Get_perfilesName(correo, Nombre):
   data = cursor.fetchone()
   connect_base.commit()
   return data
+
+def Get_AllPerfiles():
+  query = "SELECT codigo FROM perfiles"
+  cursor.execute(query)
+  data = cursor.fetchall()
+  perfiles = []
+  for row in data:
+    perfiles.append(row[0])
+  connect_base.commit()
+  return perfiles
+
+def Get_AllMovies():
+  query = "SELECT codigo FROM peliculas"
+  cursor.execute(query)
+  data = cursor.fetchall()
+  peliculas = []
+  for row in data:
+    peliculas.append(row[0])
+  connect_base.commit()
+  return peliculas
 
 def mostrarfavoritos(perfil):
   Dato = (perfil,)
