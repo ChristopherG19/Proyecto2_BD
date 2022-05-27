@@ -23,6 +23,12 @@ def obtenerData(entidad, offset):
     data = ''#Ingresar lista con toda la informacion
     return data
 
+def obtenerCorreos(entidad, offset):
+    #Realizar query
+    Get_Correos(entidad, offset)
+    data = ''#Ingresar lista con toda la informacion
+    return data
+
 '''
 Genera un codigo Concatendando las primeras 3 letras del nombre
  de la entidad y el numero correspondiente dependiendo de la cantidad de
@@ -42,12 +48,12 @@ def AgregarContenido():
     #Parte 1, datos generales - Tabla Peliculas
     codigo_pel = GenerarCodigo('Peliculas')
     titulo = input('Titulo: ')
-    genero = input("Genero: ")
+    genero = input('Genero: ')
     duracion= 0
     verificador_num = True
     while (verificador_num):
         try:
-            duracion = int(input("Duracion: "))
+            duracion = int(input('Duracion: '))
             verificador_num = False #salir del verificador
         except:
             escritura_lenta('Ingrese un numero valido')
@@ -55,7 +61,7 @@ def AgregarContenido():
     verificador_num = True
     while(verificador_num):
         try:
-            anio = int(input("Año: "))
+            anio = int(input('Año: '))
             verificador_num = False
         except:
             escritura_lenta('Ingrese un numero valido')
@@ -81,7 +87,7 @@ def AgregarContenido():
                     director y el codigo de la pelicula
                     '''
                     Upload_DirectoresPeliculas(codigo_pel, codigo_director)
-                    print("Director(es) ingresado(s) exitosamente")
+                    print('Director(es) ingresado(s) exitosamente')
                     verificador_director = False
                 else:
                     escritura_lenta('El director ingresado no existe, desea ingresarlo nuevamente o crear un usuario')
@@ -98,7 +104,7 @@ def AgregarContenido():
                         '''
                         Upload_Directores(codigo_director, director)
                         Upload_DirectoresPeliculas(codigo_pel, codigo_director)
-                        print("Director(es) ingresado(s) exitosamente")
+                        print('Director(es) ingresado(s) exitosamente')
                         verificador_director = False     
 
         elif (otro == 'n'):
@@ -127,7 +133,7 @@ def AgregarContenido():
                     Ingresar a la tabla Actor_Pelicula (codigo_pelicula, codigo_actor)
                     '''
                     Upload_ActoresPeliculas(codigo_pel, codigo_actor)
-                    print("Actor(es) ingresado(s) exitosamente")
+                    print('Actor(es) ingresado(s) exitosamente')
                     verificar_actor = False
                 else:
                     escritura_lenta('El actor ingresado no existe, desea ingresarlo nuevamente o crear un usuario')
@@ -145,7 +151,7 @@ def AgregarContenido():
                         '''
                         Upload_Actores(codigo_actor, actor)
                         Upload_ActoresPeliculas(codigo_pel, codigo_actor)
-                        print("Actor(es) ingresado(s) exitosamente")
+                        print('Actor(es) ingresado(s) exitosamente')
                         verificar_actor = False
                         
         elif (otro == 'n'):
@@ -166,7 +172,7 @@ def AgregarContenido():
             verificador_fecha = True
             fecha = ''
             while (verificador_fecha):
-                fecha = input("Fecha (YYYY-MM-DD): ")
+                fecha = input('Fecha (YYYY-MM-DD): ')
                 if (Check_Date(fecha)):
                     #se puede continuar
                     verificador_fecha = False
@@ -178,7 +184,7 @@ def AgregarContenido():
              premiacion, reconocimiento y fecha
             '''
             Upload_Premiaciones(codigo_pel, premiacion, reconocimiento, fecha)
-            print("Premiacion ingresada exitosamente")
+            print('Premiacion ingresada exitosamente')
             permanecer = False
         elif (otro == 'n'):
             #Salir de ingresar premios y continuar
@@ -199,7 +205,7 @@ def ModContenido_pelicula():
             escritura_lenta('2) Modificar utilizando codigo')
             escritura_lenta('3) Cancelar')
             print()
-            op = int(input("Opcion: "))
+            op = int(input('Opcion: '))
             if (op == 1):
                 #Ver contenido
                 permanecer2 = True
@@ -265,7 +271,7 @@ def ModContenido_pelicula():
                                     verificador_num = True
                                     while (verificador_num):
                                         try:
-                                            nuevoDato = int(input("Nuevo año: "))
+                                            nuevoDato = int(input('Nuevo año: '))
                                             verificador_num = False
                                         except:
                                             escritura_lenta('Ingrese un dato valido')
@@ -279,7 +285,7 @@ def ModContenido_pelicula():
                                     verificador_num = True
                                     while (verificador_num):
                                         try:
-                                            nuevoDato = int(input("Nueva duracion: "))
+                                            nuevoDato = int(input('Nueva duracion: '))
                                             verificador_num = False
                                         except:
                                             escritura_lenta('Ingrese un dato valido')
@@ -298,7 +304,7 @@ def ModContenido_pelicula():
                                     escritura_lenta('La opcion ingresada no es valida')
                                       
                             except Exception as ex:
-                                #print(ex)
+                                #
                                 escritura_lenta('Ingrese una opcion valida')
                     else:
                         #no existe
@@ -312,7 +318,6 @@ def ModContenido_pelicula():
                 #salir
                 permanecer = False
         except Exception as ex:
-            print(ex)
             escritura_lenta('Ingrese una respuesta valida\n')
 
 '''
@@ -327,7 +332,7 @@ def Eliminar_pelicula():
             escritura_lenta('2) Eliminar utilizando codigo')
             escritura_lenta('3) Cancelar')
             print()
-            op = int(input("Opcion: "))
+            op = int(input('Opcion: '))
             if (op == 1):
                 #Ver contenido
                 permanecer2 = True
@@ -370,7 +375,7 @@ def Eliminar_pelicula():
                                 Ejecutar query para eliminar contenido con ese nombre!
                                 '''
                                 Delete_Pelicula(cod_pel)
-                                print("Pelicula eliminada exitosamente")
+                                print('Pelicula eliminada exitosamente')
                                 permanecer3 = False
                                 permanecer2 = False
                                 
@@ -380,7 +385,7 @@ def Eliminar_pelicula():
                                 permanecer2 = False
                             else: 
                                 #Error
-                                print("La opcion ingresada no existe")
+                                print('La opcion ingresada no existe')
                     else:
                         #no existe
                         escritura_lenta('La pelicula ingresada no existe')
@@ -406,7 +411,7 @@ def Agregar_Anunciantes():
     Agregar Anuncainte a la tabla anunciantes
     '''
     Upload_Anunciantes(codigo_anunciante, nombre)
-    print("Anunciante agregado con exito")
+    print('Anunciante agregado con exito')
 
 def ModAnunciantes():
     permanecer = True
@@ -416,7 +421,7 @@ def ModAnunciantes():
             escritura_lenta('1) Ver anunciantes')
             escritura_lenta('2) Modificar utilizando codigo')
             escritura_lenta('3) Cancelar\n')
-            op = int(input("Opcion: "))
+            op = int(input('Opcion: '))
             if (op == 1):
                 #Ver contenido
                 permanecer2 = True
@@ -465,7 +470,7 @@ def ModAnunciantes():
                                         Cambiar en la base de datos 
                                     '''
                                     Mod_Anunciantes('nombre', nuevoDato, cod_an)
-                                    print("Anunciante modificado exitosamente")
+                                    print('Anunciante modificado exitosamente')
                                     permanecer3 = False
                                     permanecer2 = False
                                     
@@ -477,7 +482,7 @@ def ModAnunciantes():
                                 else:
                                     escritura_lenta('La opcion ingresada no es valida')  
                             except Exception as ex:
-                                print(ex)
+                                
                                 escritura_lenta('Ingrese una opcion valida')
                     else:
                         #no existe
@@ -501,7 +506,7 @@ def EliminarAnunciantes():
             escritura_lenta('1) Ver anunciantes')
             escritura_lenta('2) Eliminar utilizando codigo')
             escritura_lenta('3) Cancelar\n')
-            op = int(input("Opcion: "))
+            op = int(input('Opcion: '))
             if (op == 1):
                 #Ver anuncios
                 permanecer2 = True
@@ -532,13 +537,13 @@ def EliminarAnunciantes():
                 #Eliminar con codigo
                 Codigo_anunciante = input('Ingrese el codigo del anunciante: ')
                 Delete_Anunciante(Codigo_anunciante)
-                print("Anunciante eliminado exitosamente")
+                print('Anunciante eliminado exitosamente')
 
             elif (op == 3):
                 #salir
                 permanecer = False
         except Exception as ex:
-            print(ex)
+            
             escritura_lenta('Ingrese una respuesta valida\n')
 
 '''
@@ -565,7 +570,7 @@ def Agregar_Anuncios():
             Link = input('Link del contenido: ')
             #salir de la funcion
             Upload_Anuncios(cod_anuncio, cod_anunciante, duracion, contenido, Link)
-            print("Anuncio agregado exitosamente")
+            print('Anuncio agregado exitosamente')
             permanecer = False
         else:
             escritura_lenta('El anunciante no existe')
@@ -582,7 +587,7 @@ def ModAnuncios():
             escritura_lenta('1) Ver anuncios')
             escritura_lenta('2) Modificar utilizando codigo')
             escritura_lenta('3) Cancelar\n')
-            op = int(input("Opcion: "))
+            op = int(input('Opcion: '))
             if (op == 1):
                 #Ver contenido
                 permanecer2 = True
@@ -633,7 +638,7 @@ def ModAnuncios():
                                         Cambiar en la base de datos 
                                     '''
                                     Mod_Anuncios('contenidopromocional', nuevoDato, cod_an)
-                                    print("Anuncio modificado exitosamente")
+                                    print('Anuncio modificado exitosamente')
                                     permanecer3 = False
                                     permanecer2 = False
                                 elif (dato_mod == 2):
@@ -642,23 +647,23 @@ def ModAnuncios():
                                         Cambiar en la base de datos
                                     '''
                                     Mod_Anuncios('Link', nuevoDato, cod_an)
-                                    print("Anuncio modificado exitosamente")
+                                    print('Anuncio modificado exitosamente')
                                     permanecer3 = False
                                     permanecer2 = False
                                 elif(dato_mod == 3):
                                     verificador_num = True
                                     while (verificador_num):
                                         try:
-                                            nuevoDato = int(input("Nueva duracion: "))
+                                            nuevoDato = int(input('Nueva duracion: '))
                                             verificador_num = False
                                         except Exception as ex:
-                                            print(ex)
+                                            
                                             escritura_lenta('Ingrese un dato valido')
                                     '''
                                         Cambiar en la base de datos
                                     '''
                                     Mod_Anuncios('duracion', nuevoDato, cod_an)
-                                    print("Anuncio modificado exitosamente")
+                                    print('Anuncio modificado exitosamente')
                                     permanecer3 = False
                                     permanecer2 = False
                                 elif(dato_mod == 4):
@@ -669,7 +674,7 @@ def ModAnuncios():
                                 else:
                                     escritura_lenta('La opcion ingresada no es valida')  
                             except Exception as ex:
-                                print(ex)
+                                
                                 escritura_lenta('Ingrese una opcion valida')
                     else:
                         #no existe
@@ -696,7 +701,7 @@ def EliminarAnuncios():
             escritura_lenta('1) Ver contenido')
             escritura_lenta('2) Eliminar utilizando codigo')
             escritura_lenta('3) Cancelar\n')
-            op = int(input("Opcion: "))
+            op = int(input('Opcion: '))
             if (op == 1):
                 #Ver anuncios
                 permanecer2 = True
@@ -727,7 +732,7 @@ def EliminarAnuncios():
                 #Eliminar con codigo
                 Codigo_anuncio = input('Ingrese el codigo del anuncio: ')
                 Delete_Anuncio(Codigo_anuncio)
-                print("Anuncio eliminado exitosamente")
+                print('Anuncio eliminado exitosamente')
 
             elif (op == 3):
                 #salir
@@ -736,12 +741,12 @@ def EliminarAnuncios():
             escritura_lenta('Ingrese una respuesta valida\n')
 
 '''
-Modificar Usuarios
+Upgrade/Downgrade Usuarios
 '''
-def Modifi_Usuarios():
+def DownUpGrade_Usuarios():
     permanecer = True
     while (permanecer):
-        escritura_lenta("Ingrese el correo de la cuenta que desea modificar\n")
+        escritura_lenta('Ingrese el correo de la cuenta que desea modificar\n')
         correo = input('Correo: ')
         if (Correo_Validacion(correo)):
             #El correo es valido
@@ -756,7 +761,7 @@ def Modifi_Usuarios():
                     Query que cambia la suscripcion
                     '''
                     Mod_Usuarios('Gratis', correo)
-                    print("Cambio de suscripcion exitoso")
+                    print('Cambio de suscripcion exitoso')
                     permanecer2 = False
                     permanecer = False
                 elif (nuevaSus == '2'):
@@ -765,7 +770,7 @@ def Modifi_Usuarios():
                     Query que cambia la suscripcion
                     '''
                     Mod_Usuarios('Estandar', correo)
-                    print("Cambio de suscripcion exitoso")
+                    print('Cambio de suscripcion exitoso')
                     cant = Get_Perfiles(correo)
                     if (cant == 4):
                         ActPerfil(correo)
@@ -777,7 +782,7 @@ def Modifi_Usuarios():
                     Query que cambia la suscripcion
                     '''
                     Mod_Usuarios('Avanzada', correo)
-                    print("Cambio de suscripcion exitoso")
+                    print('Cambio de suscripcion exitoso')
                     cant = Get_Perfiles(correo)
                     if (cant == 8):
                         ActPerfil(correo)
@@ -805,7 +810,7 @@ Desactivar usuarios
 def desactivar_Usuarios():
     permanecer = True
     while (permanecer):
-        escritura_lenta("Ingrese el correo de la cuenta que desea desactivar\n")
+        escritura_lenta('Ingrese el correo de la cuenta que desea desactivar\n')
         correo = input('Correo: ')
         if (Correo_Validacion(correo)):
             #El correo es valido
@@ -824,10 +829,10 @@ def desactivar_Usuarios():
                     '''
                     if Get_Estado(correo):
                         Desactivar_Usuarios(nuevoEstado, correo)
-                        print("Desactivacion exitosa")
+                        print('Desactivacion exitosa')
                     else:
                         Desactivar_Usuarios(nuevoEstado, correo)
-                        print("Activacion exitosa")
+                        print('Activacion exitosa')
                     permanecer2 = False
                     permanecer = False
                 elif (opp == 'n'):
@@ -845,52 +850,52 @@ def desactivar_Usuarios():
                 permanecer = False
 
 def reporte_1():
-    escritura_lenta("Ingreso de los rangos de fecha")
-    escritura_lenta("Fecha A\n")
-    year_A =    SolicitudNum3("Ingresa el valor de Year: ")
-    month_A =   SolicitudNum3("Ingresa el valor de Month: ")
+    escritura_lenta('Ingreso de los rangos de fecha')
+    escritura_lenta('Fecha A\n')
+    year_A =    SolicitudNum3('Ingresa el valor de Year: ')
+    month_A =   SolicitudNum3('Ingresa el valor de Month: ')
     if month_A < 1 or month_A > 12:
         month_A = 1
-    day_A =     SolicitudNum3("Ingresa el valor de Day: ")
+    day_A =     SolicitudNum3('Ingresa el valor de Day: ')
     if day_A < 1 or day_A > 31:
         day_A = 1
-    escritura_lenta("Fecha B\n")
-    year_B =    SolicitudNum3("Ingresa el valor de Year: ")
-    month_B =   SolicitudNum3("Ingresa el valor de Month: ")
+    escritura_lenta('Fecha B\n')
+    year_B =    SolicitudNum3('Ingresa el valor de Year: ')
+    month_B =   SolicitudNum3('Ingresa el valor de Month: ')
     if month_B < 1 or month_B > 12:
         month_B = 1
-    day_B =     SolicitudNum3("Ingresa el valor de  Day: ")
+    day_B =     SolicitudNum3('Ingresa el valor de  Day: ')
     if day_B < 1 or day_B > 31:
         day_B = 1
 
-    fechaA= str(year_A)+"-"+str(month_A)+"-"+str(day_A)
+    fechaA= str(year_A)+'-'+str(month_A)+'-'+str(day_A)
 
-    fechaB= str(year_B)+"-"+str(month_B)+"-"+str(day_B)
+    fechaB= str(year_B)+'-'+str(month_B)+'-'+str(day_B)
     query_reporte_1(fechaA, fechaB, fechaA, fechaB)
 
     return 2
 
 def reporte_2():
-    escritura_lenta("Ingreso de los rangos de fecha\n")
-    escritura_lenta("Fecha A\n")
-    year_A =    SolicitudNum3("Ingresa el valor de Year: ")
-    month_A =   SolicitudNum3("Ingresa el valor de Month: ")
+    escritura_lenta('Ingreso de los rangos de fecha\n')
+    escritura_lenta('Fecha A\n')
+    year_A =    SolicitudNum3('Ingresa el valor de Year: ')
+    month_A =   SolicitudNum3('Ingresa el valor de Month: ')
     if month_A < 1 or month_A > 12:
         month_A = 1
-    day_A =     SolicitudNum3("Ingresa el valor de Day: ")
+    day_A =     SolicitudNum3('Ingresa el valor de Day: ')
     if day_A < 1 or day_A > 31:
         day_A = 1
-    escritura_lenta("Fecha B\n")
-    year_B =    SolicitudNum3("Ingresa el valor de Year: ")
-    month_B =   SolicitudNum3("Ingresa el valor de Month: ")
+    escritura_lenta('Fecha B\n')
+    year_B =    SolicitudNum3('Ingresa el valor de Year: ')
+    month_B =   SolicitudNum3('Ingresa el valor de Month: ')
     if month_B < 1 or month_B > 12:
         month_B = 1
-    day_B =     SolicitudNum3("Ingresa el valor de  Day: ")
+    day_B =     SolicitudNum3('Ingresa el valor de  Day: ')
     if day_B < 1 or day_B > 31:
         day_B = 1
 
-    fechaA= str(year_A)+"-"+str(month_A)+"-"+str(day_A)
-    fechaB= str(year_B)+"-"+str(month_B)+"-"+str(day_B)
+    fechaA= str(year_A)+'-'+str(month_A)+'-'+str(day_A)
+    fechaB= str(year_B)+'-'+str(month_B)+'-'+str(day_B)
     
     GetCantReprGratis(fechaA, fechaB)
     GetCantReprEst(fechaA, fechaB)
@@ -902,18 +907,351 @@ def reporte_3():
     TopDir()
 
 def reporte_5():
-    escritura_lenta("Ingreso de la fecha\n")
+    escritura_lenta('Ingreso de la fecha\n')
 
-    year_A =    SolicitudNum3("Ingresa el valor de Year: ")
-    month_A =   SolicitudNum3("Ingresa el valor de Month: ")
+    year_A =    SolicitudNum3('Ingresa el valor de Year: ')
+    month_A =   SolicitudNum3('Ingresa el valor de Month: ')
     if month_A < 1 or month_A > 12:
         month_A = 1
-    day_A =     SolicitudNum3("Ingresa el valor de Day: ")
+    day_A =     SolicitudNum3('Ingresa el valor de Day: ')
     if day_A < 1 or day_A > 31:
         day_A = 1
 
-    fechaA= str(year_A)+"-"+str(month_A)+"-"+str(day_A)
+    fechaA= str(year_A)+'-'+str(month_A)+'-'+str(day_A)
 
     query_reporte_5(fechaA)
 
     return 2
+
+def Mod_Actores():
+    permanecer = True
+    while (permanecer):
+        try:
+            escritura_lenta('\n¿Que desea hacer primero?: ')
+            escritura_lenta('1) Ver actores')
+            escritura_lenta('2) Modificar utilizando codigo')
+            escritura_lenta('3) Cancelar\n')
+            op = int(input('Opcion: '))
+            if (op == 1):
+                #Ver contenido
+                permanecer2 = True
+                offset = 0
+                pag = 1
+                while(permanecer2):
+                    if(offset >= 0):
+                        obtenerData('actores', offset)
+                        escritura_lenta('Pagina: '+str(pag))
+                        escritura_lenta('Avanzar(a)/Retroceder(d)/salir(l): ')
+                        siguiente = input('(a/d/l): ')
+                        if (siguiente == 'a'):
+                            offset += 10
+                            pag += 1
+                        elif (siguiente == 'd'):
+                            offset -= 10
+                            pag -= 1
+                        elif (siguiente == 'l'):
+                            permanecer2 = False
+                        else:
+                            escritura_lenta('La opcion ingresada no es valida')
+                    else:
+                        #Corregir el offset y evitar que este se convierta en 0
+                        offset = 0
+                        pag = 1
+
+            elif (op == 2):
+                #Modificar con codigo
+                permanecer2 = True
+                while (permanecer2):
+                    cod_an = input('Codigo actor: ')
+                    if (Get_Actor2(cod_an)):
+                        #existe
+                        permanecer3 = True
+                        while (permanecer3):
+                            try:
+                                escritura_lenta('\nQue dato desea modificar?: ')
+                                escritura_lenta('1) Nombre')
+                                escritura_lenta('2) Cancelar\n')
+                                nuevoDato =''
+                                dato_mod = int(input('Dato: '))
+                                
+                                if (dato_mod == 1):
+                                    nuevoDato = input('Nuevo: ')
+                                    '''
+                                        Cambiar en la base de datos 
+                                    '''
+                                    Mod_ActoresN('nombre', nuevoDato, cod_an)
+                                    print('Actor modificado exitosamente')
+                                    permanecer3 = False
+                                    permanecer2 = False
+                                    
+                                elif(dato_mod == 2):
+                                    escritura_lenta('[Cancelando...]\n')
+                                    permanecer3 = False
+                                    permanecer2 = False
+
+                                else:
+                                    escritura_lenta('La opcion ingresada no es valida')  
+                            except Exception as ex:
+                                print(ex)
+                                escritura_lenta('Ingrese una opcion valida')
+                    else:
+                        #no existe
+                        escritura_lenta('El actor ingresado no existe')
+                        escritura_lenta('Desea volver a escribir el codigo? (y/n)')
+                        op = input('(y/n): ')
+                        if (op == 'n'):
+                            permanecer2 = False
+
+            elif (op == 3):
+                #salir
+                permanecer = False
+        except:
+            escritura_lenta('Ingrese una respuesta valida\n')
+    
+def Mod_Directores():
+    permanecer = True
+    while (permanecer):
+        try:
+            escritura_lenta('\n¿Que desea hacer primero?: ')
+            escritura_lenta('1) Ver directores')
+            escritura_lenta('2) Modificar utilizando codigo')
+            escritura_lenta('3) Cancelar\n')
+            op = int(input('Opcion: '))
+            if (op == 1):
+                #Ver contenido
+                permanecer2 = True
+                offset = 0
+                pag = 1
+                while(permanecer2):
+                    if(offset >= 0):
+                        obtenerData('directores', offset)
+                        escritura_lenta('Pagina: '+str(pag))
+                        escritura_lenta('Avanzar(a)/Retroceder(d)/salir(l): ')
+                        siguiente = input('(a/d/l): ')
+                        if (siguiente == 'a'):
+                            offset += 10
+                            pag += 1
+                        elif (siguiente == 'd'):
+                            offset -= 10
+                            pag -= 1
+                        elif (siguiente == 'l'):
+                            permanecer2 = False
+                        else:
+                            escritura_lenta('La opcion ingresada no es valida')
+                    else:
+                        #Corregir el offset y evitar que este se convierta en 0
+                        offset = 0
+                        pag = 1
+
+            elif (op == 2):
+                #Modificar con codigo
+                permanecer2 = True
+                while (permanecer2):
+                    cod_an = input('Codigo director: ')
+                    if (Get_Director2(cod_an)):
+                        #existe
+                        permanecer3 = True
+                        while (permanecer3):
+                            try:
+                                escritura_lenta('\nQue dato desea modificar?: ')
+                                escritura_lenta('1) Nombre')
+                                escritura_lenta('2) Cancelar\n')
+                                nuevoDato =''
+                                dato_mod = int(input('Dato: '))
+                                
+                                if (dato_mod == 1):
+                                    nuevoDato = input('Nuevo: ')
+                                    '''
+                                        Cambiar en la base de datos 
+                                    '''
+                                    Mod_DirectoresN('nombre', nuevoDato, cod_an)
+                                    print('Director modificado exitosamente')
+                                    permanecer3 = False
+                                    permanecer2 = False
+                                    
+                                elif(dato_mod == 2):
+                                    escritura_lenta('[Cancelando...]\n')
+                                    permanecer3 = False
+                                    permanecer2 = False
+
+                                else:
+                                    escritura_lenta('La opcion ingresada no es valida')  
+                            except Exception as ex:
+                                escritura_lenta('Ingrese una opcion valida')
+                    else:
+                        #no existe
+                        escritura_lenta('El director ingresado no existe')
+                        escritura_lenta('Desea volver a escribir el codigo? (y/n)')
+                        op = input('(y/n): ')
+                        if (op == 'n'):
+                            permanecer2 = False
+
+            elif (op == 3):
+                #salir
+                permanecer = False
+        except:
+            escritura_lenta('Ingrese una respuesta valida\n')  
+
+def Mod_Perfiles():
+    veri = True
+    while (veri):
+        try:
+            escritura_lenta('\n¿Que desea hacer primero?: ')
+            escritura_lenta('1) Ver cuentas')
+            escritura_lenta('2) Modificar perfiles')
+            escritura_lenta('3) Cancelar\n')
+            op = int(input('Opcion: '))
+            if (op == 1):
+                permanecer2 = True
+                offset = 0
+                pag = 1
+                while(permanecer2):
+                    if(offset >= 0):
+                        Get_Correos('cuenta', offset)
+                        escritura_lenta('Pagina: '+str(pag))
+                        escritura_lenta('Avanzar(a)/Retroceder(d)/salir(l): ')
+                        siguiente = input('(a/d/l): ')
+                        if (siguiente == 'a'):
+                            offset += 10
+                            pag += 1
+                        elif (siguiente == 'd'):
+                            offset -= 10
+                            pag -= 1
+                        elif (siguiente == 'l'):
+                            permanecer2 = False
+                        else:
+                            escritura_lenta('La opcion ingresada no es valida')
+                    else:
+                        #Corregir el offset y evitar que este se convierta en 0
+                        offset = 0
+                        pag = 1
+            elif (op == 2):
+                #Modificar con correo
+                permanecer2 = True
+                while (permanecer2):
+                    correo_u = input('Correo: ')
+                    if (Get_Cuenta(correo_u)):
+                        #existe
+                        permanecer3 = True
+                        while (permanecer3):
+                            try:
+                                escritura_lenta('Correo encontrado')
+                                escritura_lenta('Opciones disponibles: ')
+                                escritura_lenta('1) Ver perfiles')
+                                escritura_lenta('2) Modificar perfil utilizando codigo')
+                                escritura_lenta('3) Cancelar\n')
+                                opci = int(input('Dato: '))
+                                
+                                if (opci == 1):
+                                    Get_PerfilesInfo2(correo_u)
+                                
+                                elif (opci == 2): 
+                                    #Modificar con codigo
+                                    permanecer4 = True
+                                    while (permanecer4):
+                                        cod_per = input('Codigo perfil: ')
+                                        if (Get_PerfilCode3(correo_u, cod_per)):
+                                            #existe
+                                            permanecer5 = True
+                                            while (permanecer5):
+                                                try:
+                                                    escritura_lenta('\nQue dato desea modificar?: ')
+                                                    escritura_lenta('1) Nombre')
+                                                    escritura_lenta('2) Cancelar\n')
+                                                    nuevoDato =''
+                                                    dato_mod = int(input('Dato: '))
+                                                    
+                                                    if (dato_mod == 1):
+                                                        nuevoDato = input('Nuevo: ')
+                                                        '''
+                                                            Cambiar en la base de datos 
+                                                        '''
+                                                        Mod_perfil(nuevoDato, cod_per, correo_u)
+                                                        print('Perfil modificado exitosamente')
+                                                        permanecer5 = False
+                                                        permanecer4 = False
+                                                        permanecer3 = False
+                                                        permanecer2 = False
+                                                        
+                                                    elif(dato_mod == 2):
+                                                        escritura_lenta('[Cancelando...]\n')
+                                                        permanecer5 = False
+                                                        permanecer4 = False
+
+                                                    else:
+                                                        escritura_lenta('La opcion ingresada no es valida')  
+                                                except Exception as ex:
+                                                    escritura_lenta('Ingrese una opcion valida')
+                                        else:
+                                            print('El codigo de perfil no existe')
+                                elif (opci == 3):
+                                    escritura_lenta('[Cancelando...]\n')
+                                    permanecer3 = False
+                                    permanecer2 = False
+
+                                else:
+                                    escritura_lenta('La opcion ingresada no es valida')  
+                            except Exception as ex:
+                                print(ex)
+                                escritura_lenta('Ingrese una opcion valida')
+                    else:
+                        #no existe
+                        escritura_lenta('El correo ingresado no existe')
+                        escritura_lenta('Desea volver a escribir el codigo? (y/n)')
+                        op = input('(y/n): ')
+                        if (op == 'n'):
+                            permanecer2 = False
+
+            elif (op == 3):
+                #salir
+                veri = False
+            
+        except:
+            print('Error, opcion invalida')
+    
+def Mod_Premiaciones():
+    print("INSERTAR FUNCION")
+
+def Modificaciones_Admin():
+    permanecer = True
+    while (permanecer):
+        try:
+            print('\n-- Campos modificables --')
+            print('1) Contenido (Peliculas)')
+            print('2) Actores')
+            print('3) Directores')
+            print('4) Perfiles')
+            print('5) Anunciantes')
+            print('6) Anuncios')
+            print('7) Premiaciones')
+            print('8) Salir')
+            print('Que desea modificar?\n')
+            
+            opc = int(input('Opcion: '))
+            
+            if (opc == 1):
+                #Modificar peliculas
+                ModContenido_pelicula()
+            elif (opc == 2):
+                #Modificar actores
+                Mod_Actores()
+            elif (opc == 3):
+                #Modificar actores
+                Mod_Directores()
+            elif (opc == 4):
+                Mod_Perfiles()
+            elif (opc == 5):
+                #Modificar anunciantes
+                ModAnunciantes()
+            elif (opc == 6):
+                #Modificar Anuncios
+                ModAnuncios()
+            elif (opc == 7):
+                Mod_Premiaciones()
+            elif (opc == 8):
+                permanecer = False
+            else:
+                print('Opcion invalida')  
+
+        except Exception as ex:
+            escritura_lenta('Ingrese una respuesta valida\n')

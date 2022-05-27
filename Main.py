@@ -176,19 +176,17 @@ while not Salir:
             print('\nIngrese el numero de la opcion que desea realizar:')
             print('__________________________________________________________')
             print('\n1) Agregar contenido')
-            print('2) Modificar contenido')
-            print('3) Eliminar contenido')
-            print('\n4) Modificar usuarios')
+            print('2) Eliminar contenido')
+            print('\n3) Modificar contenido')
+            print('\n4) Upgrade/Downgrade usuarios')
             print('5) Desactivar/Activar usuarios')
             print('\n6) Agregar anunciantes')
-            print('7) Modificar anunciantes')
-            print('8) Eliminar anunciantes')
-            print('\n9) Agregar anuncios')
-            print('10) Modificar anuncios')
-            print('11) Eliminar anuncios')
-            print('\n12) Reportes')
-            print('13) Agregar administradores')
-            print('\n14) Cerrar sesion')
+            print('7) Eliminar anunciantes')
+            print('\n8) Agregar anuncios')
+            print('9) Eliminar anuncios')
+            print('\n10) Reportes')
+            print('11) Agregar administradores')
+            print('\n12) Cerrar sesion')
             print('__________________________________________________________')
             print()
 
@@ -201,16 +199,16 @@ while not Salir:
               AgregarContenido()
 
             elif (op1 == '2'):
-              #Modificar contenido
-              ModContenido_pelicula()
-
-            elif (op1 == '3'):
               #Eliminar contenido
               Eliminar_pelicula()
 
+            elif (op1 == '3'):
+              #Modificar contenido
+              Modificaciones_Admin()
+
             elif (op1 == '4'):
               #Modificar usuario
-              Modifi_Usuarios()
+              DownUpGrade_Usuarios()
                         
             elif (op1 == '5'):
               #Desactivar usuario
@@ -221,26 +219,18 @@ while not Salir:
               Agregar_Anunciantes()
 
             elif (op1 == '7'):
-              #Modificar anunciantes
-              ModAnunciantes()
-                
-            elif (op1 == '8'):
               #Eliminar anunciantes
               EliminarAnunciantes()
 
-            elif (op1 == '9'):
+            elif (op1 == '8'):
               #Agregar anuncios
               Agregar_Anuncios()
 
-            elif (op1 == '10'):
-              #Modificar Anuncios
-              ModAnuncios()
-
-            elif (op1 == '11'):
+            elif (op1 == '9'):
               #Eliminar anunciantes
               EliminarAnuncios()
 
-            elif (op1 == '12'):
+            elif (op1 == '10'):
               ver_op12 = True
               while(ver_op12):
                 print('\n-------------------- Reportes --------------------')
@@ -271,9 +261,10 @@ while not Salir:
                 elif op12 == 7:
                   ver_op12 = False
 
-            elif (op1 == '13'):
+            elif (op1 == '11'):
               Agregar_Admins()
-            elif (op1 == '14'):
+              
+            elif (op1 == '12'):
               #Cerrar sesion
               usuario = ""
               contra = ""

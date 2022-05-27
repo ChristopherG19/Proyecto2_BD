@@ -304,10 +304,30 @@ def Mod_Anunciantes(columna, nuevo_dato, id):
   queryMA = f"UPDATE anunciantes SET {columna} = {repr(nuevo_dato)} WHERE codigo = {repr(id)}"
   cursor.execute(queryMA)
   connect_base.commit()
+  
+def Mod_ActoresN(columna, nuevo_dato, id):
+  queryMA = f"UPDATE actores SET {columna} = {repr(nuevo_dato)} WHERE codigo = {repr(id)}"
+  cursor.execute(queryMA)
+  connect_base.commit()
+  
+def Mod_DirectoresN(columna, nuevo_dato, id):
+  queryMA = f"UPDATE directores SET {columna} = {repr(nuevo_dato)} WHERE codigo = {repr(id)}"
+  cursor.execute(queryMA)
+  connect_base.commit()
 
 def Mod_Usuarios(nueva_sus, correo):
   DatosMU = (nueva_sus, correo,)
   queryMU = "UPDATE cuenta SET Tipo = %s WHERE correo = %s"
+  cursor.execute(queryMU, DatosMU)
+  connect_base.commit()
+  
+def Mod_perfil(nueva_sus, cod_per, correo):
+  DatosMU = (nueva_sus, cod_per, correo,)
+  queryMU = """
+  UPDATE perfiles SET nombre_perfil = %s 
+    FROM (perfiles p JOIN cuenta_perfiles cp ON cp.codigo_perfil = p.codigo)
+  WHERE perfiles.codigo = %s AND cp.correo_cuenta = %s
+  """
   cursor.execute(queryMU, DatosMU)
   connect_base.commit()
   
@@ -402,9 +422,33 @@ def Get_Director(dato):
   connect_base.commit()
   return Director
 
+def Get_Correos(entidad, offset):
+  queryCD = f"SELECT correo FROM {entidad} LIMIT 10 OFFSET {offset}"
+  cursor.execute(queryCD)
+  data = cursor.fetchall()
+  for x in data:
+    print(x)
+  connect_base.commit()  
+
+def Get_Director2(dato):
+  DatoGD = (dato,)
+  queryGD = "Select * from Directores WHERE codigo = %s"
+  cursor.execute(queryGD, DatoGD)
+  Director = cursor.fetchone()
+  connect_base.commit()
+  return Director
+
 def Get_Actor(dato):
   DatoGA = (dato,)
   queryGA = "Select * from Actores WHERE nombre = %s"
+  cursor.execute(queryGA, DatoGA)
+  Actor = cursor.fetchone()
+  connect_base.commit()
+  return Actor
+
+def Get_Actor2(dato):
+  DatoGA = (dato,)
+  queryGA = "Select * from Actores WHERE codigo = %s"
   cursor.execute(queryGA, DatoGA)
   Actor = cursor.fetchone()
   connect_base.commit()
@@ -512,6 +556,18 @@ def Get_PerfilesInfo(correo):
     print("----------------------------------")
   connect_base.commit()
   
+def Get_PerfilesInfo2(correo):
+  Dato = (correo,)
+  query = "SELECT * FROM perfiles p JOIN cuenta_perfiles cp ON cp.codigo_perfil = p.codigo AND correo_cuenta = %s"
+  cursor.execute(query, Dato)
+  data = cursor.fetchall()
+  for row in data:
+    print("----------------------------------")
+    print("Codigo: ", row[0])
+    print("Nombre Perfil: ", row[2])
+    print("----------------------------------")
+  connect_base.commit()
+  
 def Get_PerfilCode(correo, cod):
   Dato = (correo, cod,)
   query = "SELECT * FROM perfiles p JOIN cuenta_perfiles cp ON cp.codigo_perfil = p.codigo AND correo_cuenta = %s WHERE p.codigo = %s AND p.estado = 'TRUE'"
@@ -533,6 +589,14 @@ def Get_PerfilCode2(correo, cod):
     return data
   else:
     return data['nombre_perfil']
+  
+def Get_PerfilCode3(correo, cod):
+  Dato = (correo, cod,)
+  query = "SELECT * FROM perfiles p JOIN cuenta_perfiles cp ON cp.codigo_perfil = p.codigo AND correo_cuenta = %s WHERE p.codigo = %s"
+  cursor.execute(query, Dato)
+  data = cursor.fetchone()
+  connect_base.commit()
+  return data
 
 def Get_perfilesName(correo, Nombre):
   Dato = (correo, Nombre,)
