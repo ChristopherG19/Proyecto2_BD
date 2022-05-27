@@ -12,4 +12,8 @@ Curso: Bases de datos 2022
     4) Ingresar como administrador
         - Creación de contenido, manipulación de datos en la base, manipulación de cuentas, etc.
        
-- Lenguajes utilizados: Python, Postgresql
+![Python](http://ForTheBadge.com/images/badges/made-with-python.svg)
+![Developers](http://ForTheBadge.com/images/badges/built-by-developers.svg)
+
+![Postgresql](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![Visual Studio Code](https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
