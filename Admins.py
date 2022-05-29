@@ -1380,8 +1380,6 @@ def Mod_Premiaciones():
             print(err)
             escritura_lenta('Error: Ingrese una respuesta valida')
             
-
-
 def Mod_Correos():
     veri = True
     while (veri):

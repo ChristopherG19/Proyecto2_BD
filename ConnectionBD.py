@@ -1038,4 +1038,3 @@ def query_reporte_6():
     print("----------------------------------\n")
   connect_base.commit()
   return genero
-
