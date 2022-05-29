@@ -1464,7 +1464,7 @@ def Mod_Correos():
         except:
             print('Error, opcion invalida')
 
-def Modificaciones_Admin():
+def Modificaciones_Admin(usuario):
     permanecer = True
     while (permanecer):
         try:
@@ -1485,24 +1485,31 @@ def Modificaciones_Admin():
             if (opc == 1):
                 #Modificar peliculas
                 ModContenido_pelicula()
+                UploadBitacora(usuario)
             elif (opc == 2):
                 #Modificar actores
                 Mod_Actores()
+                UploadBitacora(usuario)
             elif (opc == 3):
                 #Modificar actores
                 Mod_Directores()
+                UploadBitacora(usuario)
             elif (opc == 4):
                 Mod_Perfiles()
+                UploadBitacora(usuario)
             elif (opc == 5):
                 #Modificar anunciantes
                 ModAnunciantes()
+                UploadBitacora(usuario)
             elif (opc == 6):
                 #Modificar Anuncios
                 ModAnuncios()
+                UploadBitacora(usuario)
             elif (opc == 7):
                 Mod_Premiaciones()
             elif (opc == 8):
                 Mod_Correos()
+                UploadBitacora(usuario)
             elif (opc == 9):
                 permanecer = False
             else:

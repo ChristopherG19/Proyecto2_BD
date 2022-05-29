@@ -199,39 +199,39 @@ while not Salir:
             if (op1 == '1'):
               #Agregar contenido
               AgregarContenido()
-
+              UploadBitacora(usuario)
             elif (op1 == '2'):
               #Eliminar contenido
               Eliminar_pelicula()
-
+              UploadBitacora(usuario)
             elif (op1 == '3'):
               #Modificar contenido
-              Modificaciones_Admin()
+              Modificaciones_Admin(usuario)
 
             elif (op1 == '4'):
               #Modificar usuario
               DownUpGrade_Usuarios()
-                        
+              UploadBitacora(usuario)
             elif (op1 == '5'):
               #Desactivar usuario
               desactivar_Usuarios()
-
+              UploadBitacora(usuario)
             elif (op1 == '6'):
               #Agregar anunciantes
               Agregar_Anunciantes()
-
+              UploadBitacora(usuario)
             elif (op1 == '7'):
               #Eliminar anunciantes
               EliminarAnunciantes()
-
+              UploadBitacora(usuario)
             elif (op1 == '8'):
               #Agregar anuncios
               Agregar_Anuncios()
-
+              UploadBitacora(usuario)
             elif (op1 == '9'):
               #Eliminar anunciantes
               EliminarAnuncios()
-
+              UploadBitacora(usuario)
             elif (op1 == '10'):
               ver_op12 = True
               while(ver_op12):
@@ -265,6 +265,7 @@ while not Salir:
 
             elif (op1 == '11'):
               Agregar_Admins()
+              UploadBitacora(usuario)
               
             elif (op1 == '12'):
               SimulacionOpera()

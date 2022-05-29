@@ -1038,3 +1038,10 @@ def query_reporte_6():
     print("----------------------------------\n")
   connect_base.commit()
   return genero
+
+#Funcion Bitacora
+def UploadBitacora(Admin):
+  DatosC = (Admin,)
+  Query = "UPDATE bitacora SET nombreadmin = %s WHERE nombreadmin is null"
+  cursor.execute(Query, DatosC)
+  connect_base.commit() 
