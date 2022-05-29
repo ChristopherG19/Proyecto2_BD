@@ -16,7 +16,7 @@ import random
 
 #--------------------------------------------------- IMPORTANTE ---------------------------------------------------
 #Cambiar estos valores para poder conectarse a la base de datos local
-connect_base = psycopg2.connect("host=localhost dbname=Proyecto_3 user=postgres port=5432 password=Basededatos2022")
+connect_base = psycopg2.connect("host=localhost dbname=Proyecto_3 user=postgres port=5432 password=1234")
 cursor = connect_base.cursor(cursor_factory=psycopg2.extras.DictCursor)
 #-------------------------------------------------------------------------------------------------------------------
 
@@ -337,6 +337,30 @@ def Mod_active(isActive, perfil):
   cursor.execute(queryMU, DatosMU)
   connect_base.commit()
 
+def Mod_premiaciones(columna, nuevo_dato, codigo_peli, col1, val1, col2, val2):
+  DatosMP = (columna, nuevo_dato, codigo_peli, col1, val1, col2, val2)
+  queryMP = "UPDATE premiaciones SET %s = %s WHERE codigo_pelicula = %s and %s = %s and %s = %s"
+  cursor.execute(queryMP, DatosMP)
+  connect_base.commit()
+
+def Mod_premiaciones_prem(nuevo_dato, codigo_peli, fecha, reconocimiento):
+  DatosMP = (nuevo_dato, codigo_peli, fecha, reconocimiento)
+  queryMP = "UPDATE premiaciones SET premiacion = %s WHERE codigo_pelicula = %s and fecha = %s and reconocimiento = %s"
+  cursor.execute(queryMP, DatosMP)
+  connect_base.commit()
+
+def Mod_premiaciones_rec(nuevo_dato, codigo_peli, premiacion, fecha):
+  DatosMP = (nuevo_dato, codigo_peli, premiacion, fecha)
+  queryMP = "UPDATE premiaciones SET reconocimiento = %s WHERE codigo_pelicula = %s and premiacion = %s and fecha = %s"
+  cursor.execute(queryMP, DatosMP)
+  connect_base.commit()
+
+def Mod_premiaciones_fecha(nuevo_dato, codigo_peli, premiacion, reconocimiento):
+  DatosMP = (nuevo_dato, codigo_peli, premiacion, reconocimiento)
+  queryMP = "UPDATE premiaciones SET fecha = %s WHERE codigo_pelicula = %s and premiacion = %s and reconocimiento = %s"
+  cursor.execute(queryMP, DatosMP)
+  connect_base.commit()
+
 def Delete_Pelicula(id):
   DatosDP = (id,)
   queryDP = "DELETE FROM Peliculas WHERE codigo = %s"
@@ -353,6 +377,12 @@ def Delete_Anunciante(id):
   DatoDA = (id,)
   queryDA = "DELETE FROM Anunciantes WHERE codigo = %s"
   cursor.execute(queryDA, DatoDA)
+  connect_base.commit()
+
+def Delete_Premiacion(peli, premiacion, reconocimiento, fecha):
+  DatoDP = (peli, premiacion, reconocimiento, fecha)
+  queryDP = " DELETE FROM premiaciones WHERE codigo_pelicula = %s and premiacion = %s and reconocimiento = %s and fecha = %s"
+  cursor.execute(queryDP, DatoDP)
   connect_base.commit()
 
 def Desactivar_Usuarios(nuevoEstado, correo):
@@ -1002,3 +1032,4 @@ def query_reporte_6():
     print("----------------------------------\n")
   connect_base.commit()
   return genero
+
