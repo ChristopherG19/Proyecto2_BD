@@ -1215,6 +1215,90 @@ def Mod_Perfiles():
 def Mod_Premiaciones():
     print("INSERTAR FUNCION")
 
+def Mod_Correos():
+    veri = True
+    while (veri):
+        try:
+            escritura_lenta('\n¿Que desea hacer primero?: ')
+            escritura_lenta('1) Ver cuentas')
+            escritura_lenta('2) Modificar correos')
+            escritura_lenta('3) Cancelar\n')
+            op = int(input('Opcion: '))
+            if (op == 1):
+                permanecer2 = True
+                offset = 0
+                pag = 1
+                while(permanecer2):
+                    if(offset >= 0):
+                        Get_Correos('cuenta', offset)
+                        escritura_lenta('Pagina: '+str(pag))
+                        escritura_lenta('Avanzar(a)/Retroceder(d)/salir(l): ')
+                        siguiente = input('(a/d/l): ')
+                        if (siguiente == 'a'):
+                            offset += 10
+                            pag += 1
+                        elif (siguiente == 'd'):
+                            offset -= 10
+                            pag -= 1
+                        elif (siguiente == 'l'):
+                            permanecer2 = False
+                        else:
+                            escritura_lenta('La opcion ingresada no es valida')
+                    else:
+                        #Corregir el offset y evitar que este se convierta en 0
+                        offset = 0
+                        pag = 1
+            elif (op == 2):
+                #Modificar con correo
+                permanecer2 = True
+                while (permanecer2):
+                    correo_u = input('Correo: ')
+                    if (Get_Cuenta(correo_u)):
+                        #existe
+                            permanecer3 = True
+                            while (permanecer3):
+                                try:
+                                    escritura_lenta('\nQue desea hacer?: ')
+                                    escritura_lenta('1) Modificar Correo')
+                                    escritura_lenta('2) Cancelar\n')
+                                    nuevoDato =''
+                                    dato_mod = int(input('Dato: '))
+                                    
+                                    if (dato_mod == 1):
+                                        nuevoDato = input('Nuevo: ')
+                                        '''
+                                            Cambiar en la base de datos 
+                                        '''
+                                        Mod_CorreoU(nuevoDato, correo_u)
+                                        print('Correo modificado exitosamente')
+                                        permanecer3 = False
+                                        permanecer2 = False
+                                        
+                                    elif(dato_mod == 2):
+                                        escritura_lenta('[Cancelando...]\n')
+                                        permanecer3 = False
+                                        permanecer2 = False
+
+                                    else:
+                                        escritura_lenta('La opcion ingresada no es valida')  
+                                except Exception as ex:
+                                    escritura_lenta('Ingrese una opcion valida')
+                                
+                    else:
+                        #no existe
+                        escritura_lenta('El correo ingresado no existe')
+                        escritura_lenta('Desea volver a escribir el codigo? (y/n)')
+                        op = input('(y/n): ')
+                        if (op == 'n'):
+                            permanecer2 = False
+
+            elif (op == 3):
+                #salir
+                veri = False
+            
+        except:
+            print('Error, opcion invalida')
+
 def Modificaciones_Admin():
     permanecer = True
     while (permanecer):
@@ -1227,7 +1311,8 @@ def Modificaciones_Admin():
             print('5) Anunciantes')
             print('6) Anuncios')
             print('7) Premiaciones')
-            print('8) Salir')
+            print('8) Correos')
+            print('9) Salir')
             print('Que desea modificar?\n')
             
             opc = int(input('Opcion: '))
@@ -1252,6 +1337,8 @@ def Modificaciones_Admin():
             elif (opc == 7):
                 Mod_Premiaciones()
             elif (opc == 8):
+                Mod_Correos()
+            elif (opc == 9):
                 permanecer = False
             else:
                 print('Opcion invalida')  
@@ -1281,6 +1368,4 @@ def SimulacionOpera():
             print('Error, opcion invalida')  
     
     Generacion_visualizaciones(cant_visua, fecha)
-
-    
-    
+  

@@ -494,6 +494,25 @@ def Gen_hora():
   hora_f = str(hora) + ':' + str(min) + ':' + str(seg)
   
   return hora_f
+ 
+def Gen_FechaFin(fecha):
+  fechaS = fecha.split('-')
+  year = fechaS[0]
+  mes = fechaS[1]
+  dia = fechaS[2]
+    
+  newMonth = random.randint(int(mes), 12)
+  newDay = random.randint(int(dia), 31)
+  
+  if(newMonth >= 0 & newMonth < 10):
+    newMonth = str(newMonth).rjust(2, '0')
+  
+  if(newDay >= 0 & newDay < 10):
+    newDay = str(newDay).rjust(2, '0')
+  
+  fechaF = str(year)+'-'+str(newMonth)+'-'+str(newDay)
+  
+  return fechaF
   
 def Generacion_visualizaciones(cant_visua, fecha):
   
@@ -503,8 +522,13 @@ def Generacion_visualizaciones(cant_visua, fecha):
     TiempoConsumido = Get_PeliTime(Code_pelicula_random) - random.randint(0,Get_PeliTime(Code_pelicula_random)-1)
     Finish = random.choice([True, False])
     hora = Gen_hora()
+    fechaC = ''
+    if (Finish == True):
+      fechaC = Gen_FechaFin(fecha)
+    else:
+      fechaC = '0001-01-01'
     
-    Upload_ContenidoPerfil(Code_perfil_random, Code_pelicula_random, TiempoConsumido, Finish, fecha, hora)
+    Upload_ContenidoPerfil(Code_perfil_random, Code_pelicula_random, TiempoConsumido, Finish, fecha, hora, fechaC)
     
     print(f"Visualizaciones insertadas ({i+1}/{cant_visua})")
     

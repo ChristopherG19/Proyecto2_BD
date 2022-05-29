@@ -88,9 +88,9 @@ def Upload_Premiaciones (CodigoPl, Premiacion, Reconocimiento, Fecha):
   cursor.execute(Query, DatosPrem)
   connect_base.commit() 
 
-def Upload_ContenidoPerfil (CodigoP, CodigoPl, MinConsumidos, Concluida, VistaF, VistaH):
-  DatosContP = (CodigoP, CodigoPl, MinConsumidos, Concluida, VistaF, VistaH)
-  Query = "INSERT INTO Contenido_Perfil VALUES (%s, %s, %s, %s, %s, %s)"
+def Upload_ContenidoPerfil (CodigoP, CodigoPl, MinConsumidos, Concluida, VistaF, VistaH, VistaF2):
+  DatosContP = (CodigoP, CodigoPl, MinConsumidos, Concluida, VistaF, VistaH, VistaF2)
+  Query = "INSERT INTO Contenido_Perfil VALUES (%s, %s, %s, %s, %s, %s, %s)"
   cursor.execute(Query, DatosContP)
   connect_base.commit() 
   
@@ -293,6 +293,12 @@ def Gen_code(entidad):
 def Modificar_Pelicula(columna, nuevo_dato, id):
   queryMP = f"UPDATE peliculas SET {columna} = {repr(nuevo_dato)} WHERE codigo = {repr(id)}"
   cursor.execute(queryMP)
+  connect_base.commit()
+  
+def Mod_CorreoU (nuevo_c, ant_c):
+  DatosMU = (nuevo_c, ant_c,)
+  queryMU = "UPDATE cuenta SET correo = %s WHERE correo = %s"
+  cursor.execute(queryMU, DatosMU)
   connect_base.commit()
 
 def Mod_Anuncios(columna, nuevo_dato, id):
