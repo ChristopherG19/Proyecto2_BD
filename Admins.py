@@ -1213,7 +1213,174 @@ def Mod_Perfiles():
             print('Error, opcion invalida')
     
 def Mod_Premiaciones():
-    print("INSERTAR FUNCION")
+    permanecer = True
+    while (permanecer):
+        try:
+            escritura_lenta('\n¿Que desea hacer primero?: ')
+            escritura_lenta('1) Ver premiaciones')
+            escritura_lenta('2) Modificar nombre de la premiacion')
+            escritura_lenta('3) Modificar nombre del reconocimiento')
+            escritura_lenta('4) Modificar fecha del reconocimiento')
+            escritura_lenta('5) Eliminar una premiacion')
+            escritura_lenta('6) Cancelar')
+            op = input("\nOpcion: ")
+            if(op == '1'):
+                #ver premiaciones
+                permanecer2 = True
+                offset = 0
+                pag = 1
+                while(permanecer2):
+                    if(offset >= 0):
+                        obtenerData('premiaciones', offset)
+                        escritura_lenta('Pagina: '+str(pag))
+                        escritura_lenta('Avanzar(a)/Retroceder(d)/salir(l): ')
+                        siguiente = input('(a/d/l): ')
+                        if (siguiente == 'a'):
+                            offset += 10
+                            pag += 1
+                        elif (siguiente == 'd'):
+                            offset -= 10
+                            pag -= 1
+                        elif (siguiente == 'l'):
+                            permanecer2 = False
+                        else:
+                            escritura_lenta('La opcion ingresada no es valida')
+                    else:
+                        #Corregir el offset y evitar que este se convierta en 0
+                        offset = 0
+                        pag = 1
+
+            elif (op == '2'):
+                #Modificar nombre de la premiación
+                escritura_lenta('Por favor ingrese los datos que a continuación se le solicitaran\n')
+                codigo_pelicula = input('Codigo de la pelicula: ')
+                reconocimiento = input('Reconocimiento: ')
+                fecha = ''
+                verificador_fecha = True
+                while (verificador_fecha):
+                    fecha = input('Fecha de la premiacion (en formato YY-MM-DD): ')
+                    if (Check_Date(fecha)):
+                        #se puede continuar
+                        verificador_fecha = False
+                    else: 
+                        escritura_lenta('Ingrese una fecha valida')
+                
+                #obtener nuevo dato
+                veri = True
+                while (veri):
+                    escritura_lenta('A continuacion escriba el nuevo nombre de la premiacion')
+                    premiacion = input('Premiacion: ')
+
+                    escritura_lenta('\nEl dato ingresado fue: '+ str(premiacion))
+                    escritura_lenta('¿Esta este correcto?')
+
+                    correcto = input('(y/n)')
+
+                    if (correcto == 'y'):
+                        # Se puede continuar para modificar el dato
+                        veri = False
+
+                # Realizar la modificación del dato
+                Mod_premiaciones_prem(premiacion, codigo_pelicula, fecha, reconocimiento)
+                permanecer = False
+
+            elif (op == '3'):
+                #Modificar nombre del reconocimiento
+                escritura_lenta("Por favor ingrese los datos que a continuación se le solicitaran\n")
+                codigo_pelicula = input("Codigo de la pelicula: ")
+                premiacion = input("Premiacion: ")
+                fecha = ''
+                verificador_fecha = True
+                while (verificador_fecha):
+                    fecha = input("Fecha de la premiacion (en formato YY-MM-DD): ")
+                    if (Check_Date(fecha)):
+                        #se puede continuar
+                        verificador_fecha = False
+                    else: 
+                        escritura_lenta("Ingrese una fecha valida")
+
+                #obtener nuevo dato
+                veri = True 
+                while(veri):
+                    escritura_lenta("A continuacion escriba el nuevo nombre del reconocimiento")
+                    reconocimiento = input("Reconocimiento: ")
+
+                    escritura_lenta('\nEl dato ingresado fue: '+ str(reconocimiento))
+                    escritura_lenta("¿Esta este correcto?")
+
+                    correcto = input("(y/n)")
+
+                    if (correcto == "y"):
+                        # Se puede continuar para modificar el dato
+                        veri = False
+
+                #Realizar la modificacion del dato
+                Mod_premiaciones_rec(reconocimiento, codigo_pelicula, premiacion, fecha)
+                permanecer = False
+
+            elif (op == '4'):
+                #Modificar la fecha
+                escritura_lenta("Por favor ingrese los datos que a continuación se le solicitaran\n")
+                codigo_pelicula = input("Codigo e la pelicula: ")
+                premiacion = input("Premiacion: ")
+                reconocimiento = input("Reconocimiento: ")
+
+                #obtener nuevo dato
+                fecha = ''
+                veri = True
+                while (veri):
+                    escritura_lenta("A continuacion escriba la nueva fecha")
+                    verificador_fecha = True
+                    while (verificador_fecha):
+                        fecha = input("Fecha de la premiacion (en formato YY-MM-DD): ")
+                        if (Check_Date(fecha)):
+                            #se puede continuar
+                            verificador_fecha = False
+                        else: 
+                            escritura_lenta("Ingrese una fecha valida")
+
+                    escritura_lenta('\nEl dato ingresado fue: '+ str(fecha))
+                    escritura_lenta("\n¿Esta este correcto?")
+
+                    correcto = input("(y/n)")
+
+                    if (correcto == 'y'):
+                        # Se puede continuar para modificar el dato
+                        veri = False
+
+                # Realizar la modificación del dato
+                Mod_premiaciones_fecha(fecha, codigo_pelicula, premiacion, reconocimiento)
+                permanecer = False
+
+            elif(op == '5'):
+                #Eliminar una premiacion
+                escritura_lenta("Por favor ingrese los datos que a continuación se le solicitaran")
+                codigo_pelicula = input("Codigo de la pelicula: ")
+                premiacion = input("Premiacion: ")
+                reconocimiento = input("Reconocimiento: ")
+                fecha = ''
+                verificador_fecha = True
+                while (verificador_fecha):
+                    fecha = input("Fecha de la premiacion (en formato YY-MM-DD): ")
+                    if (Check_Date(fecha)):
+                        #se puede continuar
+                        verificador_fecha = False
+                    else: 
+                        escritura_lenta("Ingrese una fecha valida")
+                
+                # Realizar la elminacion
+                Delete_Premiacion(codigo_pelicula, premiacion, reconocimiento, fecha)
+                permanecer = False
+
+            elif (op == '6'):
+                #salir
+                permanecer = False
+
+        except Exception as err:
+            print(err)
+            escritura_lenta('Error: Ingrese una respuesta valida')
+            
+
 
 def Mod_Correos():
     veri = True
