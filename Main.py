@@ -95,7 +95,7 @@ while not Salir:
     
     #Luego de ingresar correctamente el usuario puede usar todas las funciones
     while not verificador_menu:
-      print("\n________________________________________\n")
+      print("\n________________________________________")
       escritura_lenta("\tPerfil activo: "+ PerfilActual)
       print("\n________________________________________\n")
       print("Elija la accion a realizar\n")
