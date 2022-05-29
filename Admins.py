@@ -326,7 +326,7 @@ def ModContenido_pelicula():
 '''
 Permite elimiar peliculas
 '''
-def Eliminar_pelicula():
+def Eliminar_pelicula(usuario):
     permanecer = True
     while (permanecer):
         try:
@@ -378,6 +378,7 @@ def Eliminar_pelicula():
                                 Ejecutar query para eliminar contenido con ese nombre!
                                 '''
                                 Delete_Pelicula(cod_pel)
+                                UploadBitacora(usuario)
                                 print('Pelicula eliminada exitosamente')
                                 permanecer3 = False
                                 permanecer2 = False
@@ -501,7 +502,7 @@ def ModAnunciantes():
         except:
             escritura_lenta('Ingrese una respuesta valida\n')
 
-def EliminarAnunciantes():
+def EliminarAnunciantes(usuario):
     permanecer = True
     while (permanecer):
         try:
@@ -541,12 +542,12 @@ def EliminarAnunciantes():
                 Codigo_anunciante = input('Ingrese el codigo del anunciante: ')
                 Delete_Anunciante(Codigo_anunciante)
                 print('Anunciante eliminado exitosamente')
-
+                UploadBitacora(usuario)
             elif (op == 3):
                 #salir
                 permanecer = False
         except Exception as ex:
-            
+            print(ex)
             escritura_lenta('Ingrese una respuesta valida\n')
 
 '''
@@ -696,7 +697,7 @@ def ModAnuncios():
 '''
 Eliminar anunciantes
 '''
-def EliminarAnuncios():
+def EliminarAnuncios(usuario):
     permanecer = True
     while (permanecer):
         try:
@@ -735,6 +736,7 @@ def EliminarAnuncios():
                 #Eliminar con codigo
                 Codigo_anuncio = input('Ingrese el codigo del anuncio: ')
                 Delete_Anuncio(Codigo_anuncio)
+                UploadBitacora(usuario)
                 print('Anuncio eliminado exitosamente')
 
             elif (op == 3):

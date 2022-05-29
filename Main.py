@@ -185,7 +185,7 @@ while not Salir:
             print('7) Eliminar anunciantes')
             print('\n8) Agregar anuncios')
             print('9) Eliminar anuncios')
-            print('\n10) Reportes')
+            print('\n10) Reportes antiguos')
             print('11) Agregar administradores')
             print('12) Simulacion de operaciones')
             print('\n13) Cerrar sesion')
@@ -202,8 +202,8 @@ while not Salir:
               UploadBitacora(usuario)
             elif (op1 == '2'):
               #Eliminar contenido
-              Eliminar_pelicula()
-              UploadBitacora(usuario)
+              Eliminar_pelicula(usuario)
+              
             elif (op1 == '3'):
               #Modificar contenido
               Modificaciones_Admin(usuario)
@@ -222,16 +222,16 @@ while not Salir:
               UploadBitacora(usuario)
             elif (op1 == '7'):
               #Eliminar anunciantes
-              EliminarAnunciantes()
-              UploadBitacora(usuario)
+              EliminarAnunciantes(usuario)
+              
             elif (op1 == '8'):
               #Agregar anuncios
               Agregar_Anuncios()
               UploadBitacora(usuario)
             elif (op1 == '9'):
               #Eliminar anunciantes
-              EliminarAnuncios()
-              UploadBitacora(usuario)
+              EliminarAnuncios(usuario)
+              
             elif (op1 == '10'):
               ver_op12 = True
               while(ver_op12):
