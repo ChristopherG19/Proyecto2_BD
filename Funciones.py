@@ -500,8 +500,25 @@ def Gen_FechaFin(fecha):
   year = fechaS[0]
   mes = fechaS[1]
   dia = fechaS[2]
-    
-  newMonth = random.randint(int(mes), 12)
+  
+  meses30 = [4,6,9,11]
+  meses31 = [1,3,5,7,8,10,12]
+ 
+  if (dia == '30'):
+    temp = random.choice(meses30)
+    if (int(mes) < temp):
+      newMonth = random.choice(meses30)
+    else: 
+      newMonth = temp
+  elif (dia == '31'):
+    temp = random.choice(meses31)
+    if (int(mes) < temp):
+      newMonth = random.choice(meses31)
+    else: 
+      newMonth = temp
+  else:
+    newMonth = random.randint(int(mes), 12)
+
   newDay = random.randint(int(dia), 31)
   
   if(newMonth >= 0 & newMonth < 10):
