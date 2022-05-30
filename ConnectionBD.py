@@ -271,6 +271,12 @@ def SearchByYear(Year):
     print("----------------------------------\n")
   connect_base.commit()
   
+def SearchPers(data):
+  Datos = (data,)
+  Query = 'SELECT * FROM busquedaInfo(%s)'
+  cursor.execute(Query, Datos)
+  Data = cursor.fetchone()
+  return Data[0]
 #----------------------------------------------------------------------------------
 #                               Opciones Administrador
 #----------------------------------------------------------------------------------

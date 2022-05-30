@@ -273,6 +273,52 @@ def SearchP():
     except:
       print("Ingreso de datos inválidos")
 
+def SearchPer():
+  ver = True 
+  while (ver):
+    try:
+      print('\nDesea buscar algo? (1: Si, 2: No)')
+      opci = int(input('Opcion: '))
+      print()
+      if (opci == 1):
+        Busqueda = input("Buscar: ")
+        Datos = SearchPers(Busqueda)
+        charac = "()"
+        for x in range(len(charac)):     
+          Datos = Datos.replace(charac[x],"")
+          
+        Datos = Datos.split(',')
+        
+        print("\nInformación encontrada: ")
+        
+        if (Datos[-1] == 'peliculas'):
+          print("Codigo: ", Datos[0].replace('"',""))
+          print("Titulo: ", Datos[1])
+          print("Genero: ", Datos[2])
+          print("Year Publicacion: ", Datos[3])
+          print("Duracion: ", Datos[4])
+          
+        elif (Datos[-1] == 'actores'):
+          print("Codigo: ", Datos[0].replace('"',""))
+          print("Nombre: ", Datos[1].replace('"',""))
+          SearchByAct(Datos[1])
+          
+        elif (Datos[-1] == 'directores'):
+          print("Codigo: ", Datos[0].replace('"',""))
+          print("Nombre: ", Datos[1].replace('"',""))
+          SearchByDir(Datos[1])
+
+        print()
+        
+      elif (opci == 2):
+        print("Saliendo...")
+        ver = False
+      else:
+        print("Opcion invalida")
+      
+    except ValueError:
+      print("Error, ingreso de datos invalido")
+
 def ManejoPerfiles(correo):
   permanecer = True
   while (permanecer):
