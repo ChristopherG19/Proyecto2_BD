@@ -1051,6 +1051,48 @@ def query_reporte_6():
   connect_base.commit()
   return genero
 
+def funcion_reporte_1(mes, hora):
+  Datos = (mes, hora)
+  query = "SELECT * FROM reporte1(%s, %s);"
+  cursor.execute(query, Datos)
+  resultado = cursor.fetchall()
+  pos = 1
+  print('\nTop 5 de la hora ',hora )
+  print('#\tPelicula\tCantidad')
+  for row in resultado:
+    print(pos, '\t', row[0],'\t', row[1])
+    pos += 1
+  connect_base.commit()
+
+def funcion_reporte_2():
+  ''''''
+
+def funcion_reporte_3(inicio, fin):
+  Datos = (inicio, fin)
+  query = "SELECT * FROM reporte3(%s, %s);"
+  cursor.execute(query, Datos)
+  resultado = cursor.fetchall()
+  pos = 1
+  print('#\tAdmin\t\tCantidad de modificaciones')
+  for row in resultado:
+    print(pos, '\t', row[0],'\t', row[1])
+    pos += 1
+  connect_base.commit()
+
+def funcion_reporte_4(fecha):
+  query = "SELECT * FROM reporte4(%s);"
+  print('pone el query')
+  cursor.execute(query, [fecha])
+  print('Ejecuta el query')
+  resultado = cursor.fetchall()
+  print('Consigue el resultado')
+  pos = 1
+  print('#\tPelicula\tCantidad')
+  for row in resultado:
+    print(pos, '\t', row[0],'\t', row[1])
+    pos += 1
+  connect_base.commit()
+
 #Funcion Bitacora
 def UploadBitacora(Admin):
   DatosC = (Admin,)

@@ -282,7 +282,7 @@ while not Salir:
               SimulacionOpera()
               
             elif (op1 == '13'):
-              print("Insertar reportes")
+              Reportes_nuevos()
             
             elif (op1 == '14'):
               #Cerrar sesion
