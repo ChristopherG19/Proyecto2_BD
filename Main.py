@@ -104,9 +104,10 @@ while not Salir:
       print("3) Mostrar favoritos")
       print("4) Mostrar peliculas sin terminar")
       print("5) Mostrar peliculas vistas")
-      print("6) Busqueda personalizada")
-      print("7) Cambiar Perfil")
-      print("8) Cerrar Sesion")
+      print("6) Busqueda por opciones")
+      print("7) Busqueda personalizada")
+      print("8) Cambiar Perfil")
+      print("9) Cerrar Sesion")
       print()
 
       seleccion = SolicitudNum()
@@ -133,17 +134,21 @@ while not Salir:
         mostrarvistos(Get_CodigoPerfil(Correo, PerfilActual))
 
       elif (seleccion==6):
-        escritura_lenta("Busqueda personalizada\n")
+        escritura_lenta("Busqueda por opciones\n")
         SearchP()
-
+        
       elif (seleccion==7):
+        escritura_lenta("Busqueda personalizada\n")
+        SearchPer()
+
+      elif (seleccion==8):
         if (Get_Sub(Correo) == "Gratis"):
           print("\nLo sentimos, no puedes cambiar de perfil")
           print("El tipo de cuenta no lo permite")
         else:
           PerfilActual = CambioPerfiles(Correo, PerfilActual)
         
-      elif (seleccion==8):
+      elif (seleccion==9):
         escritura_lenta("Cerrar Sesion\n")
         EndSesion(PerfilActual)
         verificador_menu = True
@@ -185,10 +190,11 @@ while not Salir:
             print('7) Eliminar anunciantes')
             print('\n8) Agregar anuncios')
             print('9) Eliminar anuncios')
-            print('\n10) Reportes antiguos')
+            print('\n10) Reportes pasados')
             print('11) Agregar administradores')
             print('12) Simulacion de operaciones')
-            print('\n13) Cerrar sesion')
+            print('13) Reportes nuevos')
+            print('\n14) Cerrar sesion')
             print('__________________________________________________________')
             print()
 
@@ -200,6 +206,7 @@ while not Salir:
               #Agregar contenido
               AgregarContenido()
               UploadBitacora(usuario)
+              
             elif (op1 == '2'):
               #Eliminar contenido
               Eliminar_pelicula(usuario)
@@ -212,14 +219,17 @@ while not Salir:
               #Modificar usuario
               DownUpGrade_Usuarios()
               UploadBitacora(usuario)
+              
             elif (op1 == '5'):
               #Desactivar usuario
               desactivar_Usuarios()
               UploadBitacora(usuario)
+              
             elif (op1 == '6'):
               #Agregar anunciantes
               Agregar_Anunciantes()
               UploadBitacora(usuario)
+              
             elif (op1 == '7'):
               #Eliminar anunciantes
               EliminarAnunciantes(usuario)
@@ -228,6 +238,7 @@ while not Salir:
               #Agregar anuncios
               Agregar_Anuncios()
               UploadBitacora(usuario)
+              
             elif (op1 == '9'):
               #Eliminar anunciantes
               EliminarAnuncios(usuario)
@@ -269,8 +280,11 @@ while not Salir:
               
             elif (op1 == '12'):
               SimulacionOpera()
-            
+              
             elif (op1 == '13'):
+              print("Insertar reportes")
+            
+            elif (op1 == '14'):
               #Cerrar sesion
               usuario = ""
               contra = ""
