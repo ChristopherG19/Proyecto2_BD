@@ -123,6 +123,12 @@ def Upload_Intentos (CorreoC, Fecha, CantidadIn):
   Query = "INSERT INTO Intentos VALUES (%s, %s, %s)"
   cursor.execute(Query, DatosInten)
   connect_base.commit()  
+  
+def Upload_Busquedas (user, search, date):
+  Datos= (user, search, date)
+  Query = "INSERT INTO busquedas VALUES (%s, %s, %s)"
+  cursor.execute(Query, Datos)
+  connect_base.commit()  
 
 #----------------------------------------------------------------------------------
 #Funciones con queries para revisión de datos, modificación y obtención de datos 

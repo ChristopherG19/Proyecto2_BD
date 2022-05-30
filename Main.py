@@ -139,7 +139,7 @@ while not Salir:
         
       elif (seleccion==7):
         escritura_lenta("Busqueda personalizada\n")
-        SearchPer()
+        SearchPer(PerfilActual)
 
       elif (seleccion==8):
         if (Get_Sub(Correo) == "Gratis"):
