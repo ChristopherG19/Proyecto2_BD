@@ -10,7 +10,7 @@
 '''
 
 #Libreria que permite determinar si strings coinciden con un patrón o sintaxis determinada
-import datetime
+from datetime import datetime
 import re
 #Librería para encriptar contraseñas
 import hashlib
@@ -273,7 +273,7 @@ def SearchP():
     except:
       print("Ingreso de datos inválidos")
 
-def SearchPer():
+def SearchPer(PerfilActual):
   ver = True 
   while (ver):
     try:
@@ -307,6 +307,14 @@ def SearchPer():
           print("Codigo: ", Datos[0].replace('"',""))
           print("Nombre: ", Datos[1].replace('"',""))
           SearchByDir(Datos[1])
+          
+        else:
+          print(Datos)
+        
+        now = datetime.now()
+        dt_string = now.strftime("%Y/%m/%d %H:%M:%S")
+
+        Upload_Busquedas(PerfilActual, Busqueda, dt_string)
 
         print()
         
