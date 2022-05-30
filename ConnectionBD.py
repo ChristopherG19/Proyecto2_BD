@@ -16,7 +16,7 @@ import random
 
 #--------------------------------------------------- IMPORTANTE ---------------------------------------------------
 #Cambiar estos valores para poder conectarse a la base de datos local
-connect_base = psycopg2.connect("host=localhost dbname=Proyecto_3 user=postgres port=5432 password=1234")
+connect_base = psycopg2.connect("host=localhost dbname=Proyecto_3 user=postgres port=5432 password=Basededatos2022")
 cursor = connect_base.cursor(cursor_factory=psycopg2.extras.DictCursor)
 #-------------------------------------------------------------------------------------------------------------------
 
