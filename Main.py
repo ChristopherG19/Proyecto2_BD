@@ -139,7 +139,7 @@ while not Salir:
         
       elif (seleccion==7):
         escritura_lenta("Busqueda personalizada\n")
-        SearchPer(PerfilActual)
+        SearchPer(Get_CodigoPerfil(Correo, PerfilActual))
 
       elif (seleccion==8):
         if (Get_Sub(Correo) == "Gratis"):
@@ -192,9 +192,10 @@ while not Salir:
             print('9) Eliminar anuncios')
             print('\n10) Reportes pasados')
             print('11) Agregar administradores')
-            print('12) Simulacion de operaciones')
-            print('13) Reportes nuevos')
-            print('\n14) Cerrar sesion')
+            print('\n12) Simulacion de visualizaciones')
+            print('13) Simulacion de busquedas')
+            print('14) Reportes nuevos')
+            print('\n15) Cerrar sesion')
             print('__________________________________________________________')
             print()
 
@@ -279,12 +280,17 @@ while not Salir:
               UploadBitacora(usuario)
               
             elif (op1 == '12'):
+              # Simulación de visualizaciones
               SimulacionOpera()
-              
+
             elif (op1 == '13'):
+              # Simulación de búsquedas
+              SimulacionBusqueda()
+              
+            elif (op1 == '14'):
               Reportes_nuevos()
             
-            elif (op1 == '14'):
+            elif (op1 == '15'):
               #Cerrar sesion
               usuario = ""
               contra = ""

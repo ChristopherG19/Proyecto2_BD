@@ -1531,7 +1531,7 @@ def SimulacionOpera():
             ver1 = True
             fecha = ''
             while(ver1):
-                fecha = input('Fecha (YYYY-MM-DD): ')
+                fecha = input('\nFecha (YYYY-MM-DD): ')
                 if (Check_Date(fecha)):
                     #se puede continuar
                     ver1 = False
@@ -1560,6 +1560,23 @@ def SimulacionOpera():
     for fecha in fechas:
         Generacion_visualizaciones(750, fecha)'''
   
+def SimulacionBusqueda(): 
+
+    ver = True
+    while (ver):
+        try:
+            print('¿Cuantas busquedas desea simular?')
+            cant_busc = int(input('\nCant: '))
+
+            Generar_busquedas(cant_busc)
+
+            # Luego de que haya terminado
+            cont = input('Se han terminado de ingresar los datos, ENTER para continuar')
+            ver = False
+
+        except ValueError:
+            print('Ingrese un formato valido')
+
 # Reportes proyecto 3
 def Reportes_nuevos():
     permanecer = True
@@ -1614,7 +1631,7 @@ def Reportes_nuevos():
                 print('____________________________________________________________________________________\n')
                 
                 # Ejecución del procedimiento almacenado 
-                '''QUERYYYYYYYYYYYYYYYYYYYYYYYYYYYY'''
+                funcion_reporte_2()
             
             elif (op == '3'):
                 # Reporte 3
@@ -1635,7 +1652,7 @@ def Reportes_nuevos():
 
                 revisar_fecha = True
                 while (revisar_fecha):
-                    fecha_f = input('Fecha inicio (YYY-MM-DD): ')
+                    fecha_f = input('Fecha fin (YYY-MM-DD): ')
                     if(Check_Date(fecha_f)):
                         #se puede continuar
                         revisar_fecha = False
