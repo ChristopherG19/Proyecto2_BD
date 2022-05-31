@@ -11,6 +11,7 @@
 
 #Libreria que permite determinar si strings coinciden con un patrón o sintaxis determinada
 import datetime
+from random import randint
 import re
 #Librería para encriptar contraseñas
 import hashlib
@@ -272,6 +273,60 @@ def SearchP():
     except:
       print("Ingreso de datos inválidos")
 
+def SearchPer(PerfilActual):
+  ver = True 
+  while (ver):
+    try:
+      print('\nDesea buscar algo? (1: Si, 2: No)')
+      opci = int(input('Opcion: '))
+      print()
+      if (opci == 1):
+        Busqueda = input("Buscar: ")
+        Datos = SearchPers(Busqueda)
+        charac = "()"
+        for x in range(len(charac)):     
+          Datos = Datos.replace(charac[x],"")
+          
+        Datos = Datos.split(',')
+        
+        print("\nInformación encontrada: ")
+        
+        if (Datos[-1] == 'peliculas'):
+          print("Codigo: ", Datos[0].replace('"',""))
+          print("Titulo: ", Datos[1])
+          print("Genero: ", Datos[2])
+          print("Year Publicacion: ", Datos[3])
+          print("Duracion: ", Datos[4])
+          
+        elif (Datos[-1] == 'actores'):
+          print("Codigo: ", Datos[0].replace('"',""))
+          print("Nombre: ", Datos[1].replace('"',""))
+          SearchByAct(Datos[1])
+          
+        elif (Datos[-1] == 'directores'):
+          print("Codigo: ", Datos[0].replace('"',""))
+          print("Nombre: ", Datos[1].replace('"',""))
+          SearchByDir(Datos[1])
+          
+        else:
+          print(Datos)
+        
+        now = datetime.datetime.now()
+        dt_string = now.strftime("%Y/%m/%d %H:%M:%S")
+
+        Upload_Busquedas(PerfilActual, Busqueda, dt_string)
+
+        print()
+        
+      elif (opci == 2):
+        print("Saliendo...")
+        ver = False
+      else:
+        print("Opcion invalida")
+      
+    except ValueError:
+      print("Error, ingreso de datos invalido")
+
 def ManejoPerfiles(correo):
   permanecer = True
   while (permanecer):
@@ -499,19 +554,90 @@ def Gen_FechaFin(fecha):
   year = fechaS[0]
   mes = fechaS[1]
   dia = fechaS[2]
+  
+  meses30 = [4,6,9,11]
+  meses31 = [1,3,5,7,8,10,12]
+  meses28 = [2]
+
+  newmonth = random.randint(int(mes), 12)
     
-  newMonth = random.randint(int(mes), 12)
-  newDay = random.randint(int(dia), 31)
+  newday = 0
+  if (int(mes) == newmonth):
+    # Se tiene que verificar que se termine de ver el mismo día, o los que restan del mes
+    if (newmonth in meses30):
+      newday = random.randint(int(dia), 30)
+    elif (newmonth in meses31):
+      newday = random.randint(int(dia), 31)
+    elif (newmonth in meses28):
+      newday = random.randint(int(dia), 28)
+  else:
+    if (newmonth in meses30):
+      newday = random.randint(1, 30)
+    elif (newmonth in meses31):
+      newday = random.randint(1, 31)
+    elif (newmonth in meses28):
+      newday = random.randint(1, 28)
+ 
+  if(newmonth >= 0 & newmonth < 10):
+    newmonth = str(newmonth).rjust(2, '0')
   
-  if(newMonth >= 0 & newMonth < 10):
-    newMonth = str(newMonth).rjust(2, '0')
+  if(newday >= 0 & newday < 10):
+    newday = str(newday).rjust(2, '0')
   
-  if(newDay >= 0 & newDay < 10):
-    newDay = str(newDay).rjust(2, '0')
-  
-  fechaF = str(year)+'-'+str(newMonth)+'-'+str(newDay)
+  fechaF = str(year)+'-'+str(newmonth)+'-'+str(newday)
   
   return fechaF
+
+def Gen_TimeDateRand(year):
+
+  # Obtener la fecha
+
+  meses30 = [1,3,5,7,8,10,12,4,6,9,11]
+  meses31 = [1,3,5,7,8,10,12]
+  meses28 = [2,1,3,5,7,8,10,12,4,6,9,11]
+
+  dia = random.randint(1,31)
+  mes = 0
+
+  if (dia > 30):
+    # Se puede seleccionar solo de meses con 31 días
+    mes = random.choice(meses31)
+  elif (dia <= 30 and dia > 28):
+    # Se puede seleccionar solo de meses con 30 o más días
+    mes = random.choice(meses30)
+  else:
+    mes = random.choice(meses28)
+
+  # Obtener la hora
+
+  horasPos = ['00', '01', '02',
+              '03', '04', '05',
+              '06', '07', '08',
+              '09', '10', '11',
+              '12', '13', '14',
+              '15', '16', '17',
+              '18', '19', '20',
+              '21', '22', '23',]
+
+  minsSegPos = ['00', '01', '02', '03', '04', '05',
+            '06', '07', '08', '09', '10', '11',
+            '12', '13', '14', '15', '16', '17',
+            '18', '19', '20', '21', '22', '23',
+            '24', '25', '26', '27', '28', '29',
+            '31', '32', '33', '34', '35', '36',
+            '37', '38', '39', '40', '41', '42',
+            '43', '44', '45', '46', '47', '48',
+            '49', '50', '51', '52', '53', '54',
+            '55', '56', '57', '58', '59', '30']
+
+
+  hora = random.choice(horasPos)
+  mins = random.choice(minsSegPos)
+  segs = random.choice(minsSegPos)
+  
+  dateTimeRand = str(year)+'-'+str(mes)+'-'+str(dia)+' '+str(hora)+':'+str(mins)+':'+str(segs)+'.000'
+
+  return dateTimeRand
   
 def Generacion_visualizaciones(cant_visua, fecha):
   
@@ -532,3 +658,25 @@ def Generacion_visualizaciones(cant_visua, fecha):
     print(f"Visualizaciones insertadas ({i+1}/{cant_visua})")
     
   print("\nSimulacion completada exitosamente")
+
+def Generar_busquedas(cant_busquedas):
+
+  posBusquedas = ['Avengers', 'Shrek', 'Emma Watson', 'It', 'El pianista', 'Harry Potter', 'Chicago', 'Ron Howard', 
+                  'Marc Forster', 'Steven Spielberg', 'Steven Spielberg', 'Joaquin Phoenix', 'Tom Hanks', 
+                  'Leonardo DiCaprio', 'Jim Carrey', 'El viaje de Chihiro', 'The Lord of the Rings: The Return of the King', 
+                  'El Conjuro', 'Spiderman', 'Brujillizas', 'High School Musical', 'Harry Potter y la Orden del Fénix',
+                  'Dr. Strange', 'Batman', 'Avatar', 'Red', 'Moonfall', 'Encanto', 'Disney', 'Animales Fantásticos',
+                  'Pixar', 'Tom Holand', 'Venom', 'Coraline', 'Big Hero 6', 'Acuaman', 'La mujer maravilla', 'Sonic', 'Joker',
+                  'Zendaya', 'Will Smith', 'Ryan Renolds', 'Lin-Manual Miranda', 'Ben Affleck', 'Enredados', 'Luca',
+                  'Avengers', 'Avengers', 'Avengers', 'Shrek', 'Shrek', 'Shrek', 'Harry Potter', 'Harry Potter', 'Steven Spielberg']
+
+  for i in range(cant_busquedas):
+    Code_perfil_random = random.choice(Get_AllPerfiles())
+    busca_gen = random.choice(posBusquedas)
+    fecha_gen = Gen_TimeDateRand(2022)
+
+    Upload_Simulation_Search(Code_perfil_random, busca_gen, fecha_gen)
+    print(f"Busqueda insertada ({i+1}/{cant_busquedas})")
+
+    
+

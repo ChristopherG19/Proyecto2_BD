@@ -12,6 +12,7 @@
 #librerias
 from getpass import getpass
 from logging import exception
+from msilib.schema import Error
 from pickle import TRUE
 from re import A
 from unittest.loader import VALID_MODULE_NAME
@@ -1530,7 +1531,7 @@ def SimulacionOpera():
             ver1 = True
             fecha = ''
             while(ver1):
-                fecha = input('Fecha (YYYY-MM-DD): ')
+                fecha = input('\nFecha (YYYY-MM-DD): ')
                 if (Check_Date(fecha)):
                     #se puede continuar
                     ver1 = False
@@ -1542,4 +1543,148 @@ def SimulacionOpera():
             print('Error, opcion invalida')  
     
     Generacion_visualizaciones(cant_visua, fecha)
+    
+    #Para realizar las simulaciones de todos los días por dos meses consecutivos (automatizando el trabajo)
+    '''
+    fechas = ['2022-03-01', '2022-03-02', '2022-03-03', '2022-03-04', '2022-03-05', '2022-03-06', 
+              '2022-03-07', '2022-03-08', '2022-03-09', '2022-03-10', '2022-03-11', '2022-03-12', 
+              '2022-03-13', '2022-03-14', '2022-03-15', '2022-03-16', '2022-03-17', '2022-03-18', 
+              '2022-03-19', '2022-03-20', '2022-03-21', '2022-03-22', '2022-03-23', '2022-03-24', 
+              '2022-03-25', '2022-03-26', '2022-03-27', '2022-03-28', '2022-03-29', '2022-03-30', 
+              '2022-03-31', '2022-04-01', '2022-04-02', '2022-04-03', '2022-04-04', '2022-04-05', 
+              '2022-04-06', '2022-04-07', '2022-04-08', '2022-04-09', '2022-04-10', '2022-04-11', 
+              '2022-04-12', '2022-04-13', '2022-04-14', '2022-04-15', '2022-04-16', '2022-04-17', 
+              '2022-04-18', '2022-04-19', '2022-04-20', '2022-04-21', '2022-04-22', '2022-04-23', 
+              '2022-04-24', '2022-04-25', '2022-04-26', '2022-04-27', '2022-04-28', '2022-04-29', '2022-04-30']
+    
+    for fecha in fechas:
+        Generacion_visualizaciones(750, fecha)'''
   
+def SimulacionBusqueda(): 
+
+    ver = True
+    while (ver):
+        try:
+            print('¿Cuantas busquedas desea simular?')
+            cant_busc = int(input('\nCant: '))
+
+            Generar_busquedas(cant_busc)
+
+            # Luego de que haya terminado
+            cont = input('Se han terminado de ingresar los datos, ENTER para continuar')
+            ver = False
+
+        except ValueError:
+            print('Ingrese un formato valido')
+
+# Reportes proyecto 3
+def Reportes_nuevos():
+    permanecer = True
+    while (permanecer):
+        try:
+            escritura_lenta('\nEscoja a continuacion el numero de reporte que desea obtener:\n')
+            print('1) Top 5 de contenido visto en cada hora entre 9:00 a.m a 1:00 a.m para un mes dado')
+            print('2) El  top  10  de  los  terminos  que  los  usuarios  buscan')
+            print('3) El top 5 de los administradores que más modificaciones realizan en las cuentas de usuario para un rango de fechas dado')
+            print('4) El  top  20  de  películas  que  comenzaron  a  verse  pero  que  llevan  más  de  20  días  sin finalizarse, para un rango de fechas dado.')
+            print('5) CANCELAR')
+            op = input('\nOp: ')
+
+            if (op == '1'):
+                # Reporte 1
+                print('\n____________________________________________________________________________________')
+                escritura_lenta('1) Top 5 de contenido visto en cada hora entre 9:00 a.m a 1:00 a.m para un mes dado')
+                escritura_lenta('____________________________________________________________________________________\n')
+                print('Ingrese los datos que a continuacion se le solicitan')
+
+                mes = 0
+                hora = ''
+
+                revisar_mes = True
+                while (revisar_mes):
+                    try:
+                        mes = int(input('Mes (1-12): '))
+                        if (mes >= 1 and mes <= 12):
+                            revisar_mes = False
+                        else:
+                            print('El mes ingresado se encuentra afuera del rango de meses')
+                    except ValueError:
+                        escritura_lenta('El valor ingresado no está en el formato solicitado')
+
+                
+                horas = ['9:00:00', '10:00:00', '11:00:00', 
+                        '12:00:00', '13:00:00', '14:00:00', 
+                        '15:00:00', '16:00:00', '17:00:00', 
+                        '18:00:00', '19:00:00', '20:00:00', 
+                        '21:00:00', '22:00:00', '23:00:00', 
+                        '24:00:00']
+
+                # Ejecución del procedimiento almacenado 
+                for x in horas:
+                    funcion_reporte_1(mes, x)
+
+            
+            elif (op == '2'):
+                # Reporte 2
+                print('\n____________________________________________________________________________________')
+                escritura_lenta('1) El  top  10  de  los  terminos  que  los  usuarios  buscan\n')
+                print('____________________________________________________________________________________\n')
+                
+                # Ejecución del procedimiento almacenado 
+                funcion_reporte_2()
+            
+            elif (op == '3'):
+                # Reporte 3
+                print('\n____________________________________________________________________________________')
+                escritura_lenta('3) El top 5 de los administradores que más modificaciones realizan en las cuentas de usuario para un rango de fechas dado')
+                escritura_lenta('____________________________________________________________________________________\n')
+                print('Ingrese los datos que a continuacion se le solicitan')
+
+                fecha_i = ''
+                fecha_f = ''
+
+                revisar_fecha = True
+                while (revisar_fecha):
+                    fecha_i = input('Fecha inicio (YYY-MM-DD): ')
+                    if(Check_Date(fecha_i)):
+                        #se puede continuar
+                        revisar_fecha = False
+
+                revisar_fecha = True
+                while (revisar_fecha):
+                    fecha_f = input('Fecha fin (YYY-MM-DD): ')
+                    if(Check_Date(fecha_f)):
+                        #se puede continuar
+                        revisar_fecha = False
+
+                # Ejecución del procedimiento almacenado 
+                funcion_reporte_3(fecha_i, fecha_f)
+
+            elif (op == '4'):
+                # Reporte 4
+                print('\n_____________________________________________________________________________________________________________________________________________')
+                escritura_lenta('4) El  top  20  de  películas  que  comenzaron  a  verse  pero  que  llevan  más  de  20  días  sin finalizarse, para un rango de fechas dado.')
+                escritura_lenta('_____________________________________________________________________________________________________________________________________________\n')
+                print('Ingrese los datos que a continuacion se le solicitan')
+
+                fecha_i = ''
+
+                revisar_fecha = True
+                while (revisar_fecha):
+                    fecha_i = input('Fecha (YYY-MM-DD): ')
+                    if(Check_Date(fecha_i)):
+                        #se puede continuar
+                        revisar_fecha = False
+
+                # Ejecución del procedimiento almacenado 
+                funcion_reporte_4(fecha_i)
+
+            elif (op == '5'):
+                # Salir
+                permanecer = False
+
+            else:
+                escritura_lenta('La opcion ingresada no es valida')
+
+        except Exception as err:
+            print(err)

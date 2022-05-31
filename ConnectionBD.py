@@ -10,13 +10,14 @@
 '''
 
 #Se importan librerias utilizadas para la conexión con Postgresql
+from unittest import result
 import psycopg2
 import psycopg2.extras
 import random
 
 #--------------------------------------------------- IMPORTANTE ---------------------------------------------------
 #Cambiar estos valores para poder conectarse a la base de datos local
-connect_base = psycopg2.connect("host=localhost dbname=proyecto_2_finalfinal user=postgres port=5432 password=Basket052012")
+connect_base = psycopg2.connect("host=localhost dbname=Proyecto_3 user=postgres port=5432 password=Basededatos2022")
 cursor = connect_base.cursor(cursor_factory=psycopg2.extras.DictCursor)
 #-------------------------------------------------------------------------------------------------------------------
 
@@ -93,6 +94,12 @@ def Upload_ContenidoPerfil (CodigoP, CodigoPl, MinConsumidos, Concluida, VistaF,
   Query = "INSERT INTO Contenido_Perfil VALUES (%s, %s, %s, %s, %s, %s, %s)"
   cursor.execute(Query, DatosContP)
   connect_base.commit() 
+
+def Upload_Simulation_Search(Cod_perfil, Busqueda, fecha):
+  Datos = (Cod_perfil, Busqueda, fecha)
+  Query = "INSERT INTO busquedas VALUES (%s, %s, %s)"
+  cursor.execute(Query, Datos)
+  connect_base.commit()
   
 def Upload_FavPerfil (CodigoP, CodigoPl, CorreoC, VistaF, VistaH):
   DatosFavPerfil = (CodigoP, CodigoPl, CorreoC, VistaF, VistaH)
@@ -122,6 +129,12 @@ def Upload_Intentos (CorreoC, Fecha, CantidadIn):
   DatosInten = (CorreoC, Fecha, CantidadIn)
   Query = "INSERT INTO Intentos VALUES (%s, %s, %s)"
   cursor.execute(Query, DatosInten)
+  connect_base.commit()  
+  
+def Upload_Busquedas (user, search, date):
+  Datos= (user, search, date)
+  Query = "INSERT INTO busquedas VALUES (%s, %s, %s)"
+  cursor.execute(Query, Datos)
   connect_base.commit()  
 
 #----------------------------------------------------------------------------------
@@ -271,6 +284,12 @@ def SearchByYear(Year):
     print("----------------------------------\n")
   connect_base.commit()
   
+def SearchPers(data):
+  Datos = (data,)
+  Query = 'SELECT * FROM busquedaInfo(%s)'
+  cursor.execute(Query, Datos)
+  Data = cursor.fetchone()
+  return Data[0]
 #----------------------------------------------------------------------------------
 #                               Opciones Administrador
 #----------------------------------------------------------------------------------
@@ -1032,6 +1051,56 @@ def query_reporte_6():
     print("----------------------------------\n")
   connect_base.commit()
   return genero
+
+def funcion_reporte_1(mes, hora):
+  Datos = (mes, hora)
+  query = "SELECT * FROM reporte1(%s, %s);"
+  cursor.execute(query, Datos)
+  resultado = cursor.fetchall()
+  pos = 1
+  print('\nTop 5 de la hora ',hora )
+  print('#\tPelicula\tCantidad')
+  for row in resultado:
+    print(pos, '\t', row[0],'\t', row[1])
+    pos += 1
+  connect_base.commit()
+
+def funcion_reporte_2():
+  query = "SELECT * FROM reporte2();"
+  cursor.execute(query)
+  resultado = cursor.fetchall()
+  pos = 1
+  print('\n#\tBusquedas\t\t\tCantidad')
+  for row in resultado:
+      print(pos, '\t', row[0],'\t\t\t', row[1])
+      pos += 1
+  connect_base.commit()
+
+def funcion_reporte_3(inicio, fin):
+  Datos = (inicio, fin)
+  query = "SELECT * FROM reporte3(%s, %s);"
+  cursor.execute(query, Datos)
+  resultado = cursor.fetchall()
+  pos = 1
+  print('#\tAdmin\t\tCantidad de modificaciones')
+  for row in resultado:
+    print(pos, '\t', row[0],'\t', row[1])
+    pos += 1
+  connect_base.commit()
+
+def funcion_reporte_4(fecha):
+  query = "SELECT * FROM reporte4(%s);"
+  print('pone el query')
+  cursor.execute(query, [fecha])
+  print('Ejecuta el query')
+  resultado = cursor.fetchall()
+  print('Consigue el resultado')
+  pos = 1
+  print('#\tPelicula\tCantidad')
+  for row in resultado:
+    print(pos, '\t', row[0],'\t', row[1])
+    pos += 1
+  connect_base.commit()
 
 #Funcion Bitacora
 def UploadBitacora(Admin):
