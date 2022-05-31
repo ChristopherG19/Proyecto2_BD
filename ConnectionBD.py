@@ -416,6 +416,12 @@ def Delete_Actor(id):
   cursor.execute(queryDA, DatoDA)
   connect_base.commit()
 
+def Delete_Director(id):
+  DatoDA = (id,)
+  queryDA = "DELETE FROM directores WHERE codigo = %s"
+  cursor.execute(queryDA, DatoDA)
+  connect_base.commit()
+
 def Desactivar_Usuarios(nuevoEstado, correo):
   DatoDU = (nuevoEstado, correo,)
   queryDU = "UPDATE cuenta SET estado = %s where correo = %s"
