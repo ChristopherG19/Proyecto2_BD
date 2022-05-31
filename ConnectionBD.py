@@ -10,6 +10,7 @@
 '''
 
 #Se importan librerias utilizadas para la conexión con Postgresql
+from unittest import result
 import psycopg2
 import psycopg2.extras
 import random
@@ -93,6 +94,12 @@ def Upload_ContenidoPerfil (CodigoP, CodigoPl, MinConsumidos, Concluida, VistaF,
   Query = "INSERT INTO Contenido_Perfil VALUES (%s, %s, %s, %s, %s, %s, %s)"
   cursor.execute(Query, DatosContP)
   connect_base.commit() 
+
+def Upload_Simulation_Search(Cod_perfil, Busqueda, fecha):
+  Datos = (Cod_perfil, Busqueda, fecha)
+  Query = "INSERT INTO busquedas VALUES (%s, %s, %s)"
+  cursor.execute(Query, Datos)
+  connect_base.commit()
   
 def Upload_FavPerfil (CodigoP, CodigoPl, CorreoC, VistaF, VistaH):
   DatosFavPerfil = (CodigoP, CodigoPl, CorreoC, VistaF, VistaH)
@@ -1065,7 +1072,15 @@ def funcion_reporte_1(mes, hora):
   connect_base.commit()
 
 def funcion_reporte_2():
-  ''''''
+  query = "SELECT * FROM reporte2();"
+  cursor.execute(query)
+  resultado = cursor.fetchall()
+  pos = 1
+  print('\n#\tBusquedas\t\t\tCantidad')
+  for row in resultado:
+      print(pos, '\t', row[0],'\t\t\t', row[1])
+      pos += 1
+  connect_base.commit()
 
 def funcion_reporte_3(inicio, fin):
   Datos = (inicio, fin)
