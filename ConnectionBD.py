@@ -17,7 +17,7 @@ import random
 
 #--------------------------------------------------- IMPORTANTE ---------------------------------------------------
 #Cambiar estos valores para poder conectarse a la base de datos local
-connect_base = psycopg2.connect("host=localhost dbname=muerasehectornocalifica user=postgres port=5432 password=Basket052012")
+connect_base = psycopg2.connect("host=localhost dbname=Proyecto_3 user=postgres port=5432 password=1234")
 cursor = connect_base.cursor(cursor_factory=psycopg2.extras.DictCursor)
 #-------------------------------------------------------------------------------------------------------------------
 
@@ -408,6 +408,12 @@ def Delete_Premiacion(peli, premiacion, reconocimiento, fecha):
   DatoDP = (peli, premiacion, reconocimiento, fecha)
   queryDP = " DELETE FROM premiaciones WHERE codigo_pelicula = %s and premiacion = %s and reconocimiento = %s and fecha = %s"
   cursor.execute(queryDP, DatoDP)
+  connect_base.commit()
+
+def Delete_Actor(id):
+  DatoDA = (id,)
+  queryDA = "DELETE FROM actores WHERE codigo = %s"
+  cursor.execute(queryDA, DatoDA)
   connect_base.commit()
 
 def Desactivar_Usuarios(nuevoEstado, correo):

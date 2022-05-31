@@ -935,8 +935,10 @@ def Mod_Actores():
         try:
             escritura_lenta('\n¿Que desea hacer primero?: ')
             escritura_lenta('1) Ver actores')
-            escritura_lenta('2) Modificar utilizando codigo')
-            escritura_lenta('3) Cancelar\n')
+            escritura_lenta('2) Agregar actores')
+            escritura_lenta('3) Modificar utilizando codigo')
+            escritura_lenta('4) Eliminar utilizando codigo')
+            escritura_lenta('5) Cancelar\n')
             op = int(input('Opcion: '))
             if (op == 1):
                 #Ver contenido
@@ -965,6 +967,32 @@ def Mod_Actores():
                         pag = 1
 
             elif (op == 2):
+                verificar_actor = True
+                while (verificar_actor):
+                    actor = input('Nombre del actor: ')
+                    existencia = Get_Actor(actor)
+                    if (existencia):
+                        #Ya existe en la base de datos
+                        print(actor, ' ya existe en la base de datos')
+                        # Ignorar y salir 
+                        verificar_actor = False
+                    else:
+                        escritura_lenta('Se ingresará el actor '+actor+', ¿está seguro que desea ingresarlo?')
+                        oppp = input('(y/n) ')
+                        if (oppp == 'y'):
+                            #Crear dato en la base de datos
+                            codigo_actor = GenerarCodigo('actores')
+
+                            # Insertar en la base de datos
+                            Upload_Actores(codigo_actor, actor)
+
+                            print('Actor ingresado exitosamente')
+                            verificar_actor = False
+                        else:
+                            verificar_actor = False
+                            ''''''
+
+            elif (op == 3):
                 #Modificar con codigo
                 permanecer2 = True
                 while (permanecer2):
@@ -1008,11 +1036,49 @@ def Mod_Actores():
                         if (op == 'n'):
                             permanecer2 = False
 
-            elif (op == 3):
+            elif (op == 4):
+                # Eliminar 
+                permanecer2 = True
+                while (permanecer2):
+                    cod_ac = input('Codigo actor: ')
+                    if (Get_Actor2(cod_ac)):
+                        #existe
+                        permanecer3 = True
+                        while (permanecer3):
+                            try:
+                                print(Get_Actor2(cod_ac))
+                                escritura_lenta('Seguro que desea eliminar al Actor?')
+
+                                conf = input('(y/n): ')
+                                if (conf == 'y'):
+                                    # Eliminar 
+                                    Delete_Actor(cod_ac)
+                                    permanecer2 = False
+                                    permanecer3 = False
+                                elif (conf == 'n'):
+                                    # Cancelar
+                                    permanecer2 = False
+                                    permanecer3 = False
+                                else:
+                                    print('Ingrese una opcion valida')
+
+                            except Exception as ex:
+                                print(ex)
+                                escritura_lenta('Ingrese una opcion valida')
+                    else:
+                        #no existe
+                        escritura_lenta('El actor ingresado no existe')
+                        escritura_lenta('Desea volver a escribir el codigo? (y/n)')
+                        op = input('(y/n): ')
+                        if (op == 'n'):
+                            permanecer2 = False
+
+            elif (op == 5):
                 #salir
                 permanecer = False
-        except:
+        except Exception as err:
             escritura_lenta('Ingrese una respuesta valida\n')
+            print(err)
     
 def Mod_Directores():
     permanecer = True
