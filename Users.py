@@ -83,12 +83,14 @@ def ver_peliculas(Correo, PerfilActual):
 
                             #Contenido terminar, perfil reproducciones
                             Upload_PerfilReproducciones(Get_CodigoPerfil(Correo, PerfilActual),siguiente,Fecha,Hora)
+                            Upload_ContenidoPerfil(Get_CodigoPerfil(Correo, PerfilActual), siguiente, minutos_consumidos, 'true',Fecha,Hora)
                             ContenidoFinalizadoRegistros(Get_CodigoPerfil(Correo, PerfilActual),siguiente)
                             
                         elif op2 == "s" and Get_Sub(Correo) != "Gratis":
                             print("Registro en tablas")
                             #Contenido terminado, perfil reproducciones
                             Upload_PerfilReproducciones(Get_CodigoPerfil(Correo, PerfilActual),siguiente,Fecha,Hora)
+                            Upload_ContenidoPerfil(Get_CodigoPerfil(Correo, PerfilActual), siguiente, minutos_consumidos, 'true',Fecha,Hora)
                             ContenidoFinalizadoRegistros(Get_CodigoPerfil(Correo, PerfilActual),siguiente)
                         
                         else:

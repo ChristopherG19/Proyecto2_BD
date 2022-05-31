@@ -648,10 +648,23 @@ def Generacion_visualizaciones(cant_visua, fecha):
     Finish = random.choice([True, False])
     hora = Gen_hora()
     fechaC = ''
+
+    now = datetime.datetime.now()
+    horaExtra = now.strftime("%H:%M:%S")
+    today = datetime.date.today()
+    fechaExtra = today.strftime("%Y/%m/%d")
+        
     if (Finish == True):
+      Upload_PerfilReproducciones(Code_perfil_random,Code_pelicula_random,fechaExtra,horaExtra)
       fechaC = Gen_FechaFin(fecha)
     else:
       fechaC = '0001-01-01'
+
+    Correo = Get_mail(Code_perfil_random)
+    Tipo = Get_Sub(Correo)
+    if (Tipo == 'Gratis' and Finish):
+      
+      anuncios_mostrar(anuncios_cantidad(anuncios_tiempo(Code_pelicula_random)),anuncios_tiempo(Code_pelicula_random), Correo)
     
     Upload_ContenidoPerfil(Code_perfil_random, Code_pelicula_random, TiempoConsumido, Finish, fecha, hora, fechaC)
     

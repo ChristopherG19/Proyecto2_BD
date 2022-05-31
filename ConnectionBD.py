@@ -17,7 +17,7 @@ import random
 
 #--------------------------------------------------- IMPORTANTE ---------------------------------------------------
 #Cambiar estos valores para poder conectarse a la base de datos local
-connect_base = psycopg2.connect("host=localhost dbname=Proyecto_3 user=postgres port=5432 password=Basededatos2022")
+connect_base = psycopg2.connect("host=localhost dbname=muerasehectornocalifica user=postgres port=5432 password=Basket052012")
 cursor = connect_base.cursor(cursor_factory=psycopg2.extras.DictCursor)
 #-------------------------------------------------------------------------------------------------------------------
 
@@ -1101,6 +1101,18 @@ def funcion_reporte_4(fecha):
     print(pos, '\t', row[0],'\t', row[1])
     pos += 1
   connect_base.commit()
+
+def Get_mail(perfil):
+  DatoGS = (perfil,)
+  queryGS = "Select * from cuenta_perfiles where codigo_perfil = %s"
+  cursor.execute(queryGS, DatoGS)
+  cuenta = cursor.fetchone()
+  connect_base.commit()
+  if cuenta == None:
+    return cuenta
+  else: 
+    return cuenta['correo_cuenta']
+
 
 #Funcion Bitacora
 def UploadBitacora(Admin):
