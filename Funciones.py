@@ -47,7 +47,6 @@ def anuncios_mostrar(cantidad, tiempo, Correo):
       print("Anuncio mostrado al minuto...", tiempo)
     anuncio = anuncio_random(temp, Correo)
     temp, abrir = anuncio[0], anuncio[1]
-    open_link(abrir)
 
 def open_link(link):
   webbrowser.open(link)

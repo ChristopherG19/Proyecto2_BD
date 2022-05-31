@@ -794,13 +794,7 @@ def anuncio_random(temp, Correo):
   print("\n")
   link = ''
   for row in Peliculas:
-    link = row[4]
-    print("----------------------------------")
-    print("Codigo: ", row[0])
-    print("Contenido Promocional: ", row[3])
-    print("Link: ", row[4])
     Upload_Rep_Anuncios(row[0], Correo)
-    print("----------------------------------\n")
   connect_base.commit()
   return [numoer, link]
 
