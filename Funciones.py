@@ -558,7 +558,7 @@ def Gen_FechaFin(fecha):
   meses30 = [4,6,9,11]
   meses31 = [1,3,5,7,8,10,12]
  
-  if (dia == '30'):
+  if (dia <= '30'):
     temp = random.choice(meses30)
     if (int(mes) < temp):
       newMonth = random.choice(meses30)
@@ -569,7 +569,7 @@ def Gen_FechaFin(fecha):
     if (int(mes) < temp):
       newMonth = random.choice(meses31)
     else: 
-      newMonth = temp
+      newMonth = temp  
   else:
     newMonth = random.randint(int(mes), 12)
 
