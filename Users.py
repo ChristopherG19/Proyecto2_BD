@@ -112,7 +112,6 @@ def ver_peliculas(Correo, PerfilActual):
                         
                         
                         # Determinar si ya lo tiene en favoritos o no
-                        print(' a punto de entrar')
                         if(Get_if_favorito(Get_CodigoPerfil(Correo, PerfilActual),siguiente) == 0):
                             # Ofrecer a agregar a favoritos
                             escritura_lenta('\n ¿Deseas agregarla a favoritos? ')
