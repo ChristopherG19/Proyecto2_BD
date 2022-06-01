@@ -66,7 +66,7 @@ def ver_peliculas(Correo, PerfilActual):
                     siguiente = input('Ingrese codigo de la pelicula a ver: ')
                     if comprobar_pelicula(siguiente) != None:
 
-                        open_link(comprobar_pelicula(siguiente))
+                        #open_link(comprobar_pelicula(siguiente))
 
                         escritura_lenta('\n ¿Terminaste de ver la pelicula?  ')
                         op2 = input("(s/n): ")
@@ -80,31 +80,42 @@ def ver_peliculas(Correo, PerfilActual):
                             print("cantidad de tiempo: ",anuncios_tiempo(siguiente))
 
                             anuncios_mostrar(anuncios_cantidad(anuncios_tiempo(siguiente)),anuncios_tiempo(siguiente), Correo)
-
+                            
+                            minutos_consumidos = Get_PeliTime(siguiente) - random.randint(0,Get_PeliTime(siguiente)-1) 
+                            get_yearrepro = Fecha.strftime('%Y') 
+                            get_monthrepro = Fecha.strftime('%m') 
+                            get_dayrepro = Fecha.strftime('%d') 
+                            fechaC = GenFechaRepro(get_yearrepro, get_monthrepro, get_dayrepro)
                             #Contenido terminar, perfil reproducciones
                             Upload_PerfilReproducciones(Get_CodigoPerfil(Correo, PerfilActual),siguiente,Fecha,Hora)
-                            Upload_ContenidoPerfil(Get_CodigoPerfil(Correo, PerfilActual), siguiente, minutos_consumidos, 'true',Fecha,Hora)
+                            Upload_ContenidoPerfil(Get_CodigoPerfil(Correo, PerfilActual), siguiente, minutos_consumidos, 'true',Fecha,Hora,fechaC)
                             ContenidoFinalizadoRegistros(Get_CodigoPerfil(Correo, PerfilActual),siguiente)
                             
                         elif op2 == "s" and Get_Sub(Correo) != "Gratis":
                             print("Registro en tablas")
+                            get_yearrepro = Fecha.strftime('%Y') 
+                            get_monthrepro = Fecha.strftime('%m') 
+                            get_dayrepro = Fecha.strftime('%d') 
+                            fechaC = GenFechaRepro(get_yearrepro, get_monthrepro, get_dayrepro)
+                            minutos_consumidos = Get_PeliTime(siguiente) - random.randint(0,Get_PeliTime(siguiente)-1)
                             #Contenido terminado, perfil reproducciones
                             Upload_PerfilReproducciones(Get_CodigoPerfil(Correo, PerfilActual),siguiente,Fecha,Hora)
-                            Upload_ContenidoPerfil(Get_CodigoPerfil(Correo, PerfilActual), siguiente, minutos_consumidos, 'true',Fecha,Hora)
+                            Upload_ContenidoPerfil(Get_CodigoPerfil(Correo, PerfilActual), siguiente, minutos_consumidos, 'true',Fecha,Hora,fechaC)
                             ContenidoFinalizadoRegistros(Get_CodigoPerfil(Correo, PerfilActual),siguiente)
                         
                         else:
                             #Contenido sin terminar
                             escritura_lenta("¿En que minuto te quedaste? ")
                             minutos_consumidos = SolicitudNum2()
-                            Upload_ContenidoPerfil(Get_CodigoPerfil(Correo, PerfilActual), siguiente, minutos_consumidos, 'false',Fecha,Hora)
+                            fechaC = '0001-01-01'
+                            Upload_ContenidoPerfil(Get_CodigoPerfil(Correo, PerfilActual), siguiente, minutos_consumidos, 'false',Fecha,Hora,fechaC)
                         
                         escritura_lenta('\n ¿Deseas agregarla a favoritos? ')
                         op3 = input("(s/n): ")
 
                         if op3 == "s":
                             print("agregar a favoritos")
-                            Upload_FavPerfil(Get_CodigoPerfil(Correo, PerfilActual), siguiente, Correo,Fecha,Hora)
+                            Upload_FavPerfil(Get_CodigoPerfil(Correo, PerfilActual),siguiente,Fecha,Hora)
                             print()
                             permanecer3 = False
                         else:

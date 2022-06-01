@@ -101,9 +101,9 @@ def Upload_Simulation_Search(Cod_perfil, Busqueda, fecha):
   cursor.execute(Query, Datos)
   connect_base.commit()
   
-def Upload_FavPerfil (CodigoP, CodigoPl, CorreoC, VistaF, VistaH):
-  DatosFavPerfil = (CodigoP, CodigoPl, CorreoC, VistaF, VistaH)
-  Query = "INSERT INTO Favoritos_Perfil VALUES (%s, %s, %s, %s, %s)"
+def Upload_FavPerfil (CodigoP, CodigoPl, VistaF, VistaH):
+  DatosFavPerfil = (CodigoP, CodigoPl, VistaF, VistaH)
+  Query = "INSERT INTO Favoritos_Perfil VALUES (%s, %s, %s, %s)"
   cursor.execute(Query, DatosFavPerfil)
   connect_base.commit() 
   
