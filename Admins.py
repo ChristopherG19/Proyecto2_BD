@@ -644,8 +644,8 @@ def ModAnuncios(usuario):
                                         Cambiar en la base de datos 
                                     '''
                                     Mod_Anuncios('contenidopromocional', nuevoDato, cod_an)
-                                    print('Anuncio modificado exitosamente')
                                     UploadBitacora(usuario)
+                                    print('Anuncio modificado exitosamente')
                                     permanecer3 = False
                                     permanecer2 = False
                                 elif (dato_mod == 2):
@@ -654,6 +654,7 @@ def ModAnuncios(usuario):
                                         Cambiar en la base de datos
                                     '''
                                     Mod_Anuncios('Link', nuevoDato, cod_an)
+                                    UploadBitacora(usuario)
                                     print('Anuncio modificado exitosamente')
                                     permanecer3 = False
                                     permanecer2 = False
@@ -670,6 +671,7 @@ def ModAnuncios(usuario):
                                         Cambiar en la base de datos
                                     '''
                                     Mod_Anuncios('duracion', nuevoDato, cod_an)
+                                    UploadBitacora(usuario)
                                     print('Anuncio modificado exitosamente')
                                     permanecer3 = False
                                     permanecer2 = False
