@@ -110,16 +110,36 @@ def ver_peliculas(Correo, PerfilActual):
                             fechaC = '0001-01-01'
                             Upload_ContenidoPerfil(Get_CodigoPerfil(Correo, PerfilActual), siguiente, minutos_consumidos, 'false',Fecha,Hora,fechaC)
                         
-                        escritura_lenta('\n ¿Deseas agregarla a favoritos? ')
-                        op3 = input("(s/n): ")
+                        
+                        # Determinar si ya lo tiene en favoritos o no
+                        print(' a punto de entrar')
+                        if(Get_if_favorito(Get_CodigoPerfil(Correo, PerfilActual),siguiente) == 0):
+                            # Ofrecer a agregar a favoritos
+                            escritura_lenta('\n ¿Deseas agregarla a favoritos? ')
+                            op3 = input("(s/n): ")
 
-                        if op3 == "s":
-                            print("agregar a favoritos")
-                            Upload_FavPerfil(Get_CodigoPerfil(Correo, PerfilActual),siguiente,Fecha,Hora)
-                            print()
-                            permanecer3 = False
+                            if op3 == "s":
+                                print("agregar a favoritos")
+                                Upload_FavPerfil(Get_CodigoPerfil(Correo, PerfilActual),siguiente,Fecha,Hora)
+                                print()
+                                permanecer3 = False
+                            else:
+                                permanecer3 = False
+                            
+
                         else:
-                            permanecer3 = False
+                            # Ya existe, ofrecer eliminarla
+                            escritura_lenta('\n La película vista está en favoritas, ¿desea eliminarla del listado?')
+                            op3 = input('(s/n): ')
+
+                            if op3 == 's':
+                                # Eliminarla
+                                Delete_Favoritos(Get_CodigoPerfil(Correo, PerfilActual), siguiente)
+                                print('Eliminada de favoritos')
+                                permanecer3 = False
+                            else:
+                                # Salir
+                                permanecer3 = False
                     else:
                         escritura_lenta("Codigo de pelicula no encontrado\n")
                 else:

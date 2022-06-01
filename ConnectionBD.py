@@ -17,7 +17,11 @@ import random
 
 #--------------------------------------------------- IMPORTANTE ---------------------------------------------------
 #Cambiar estos valores para poder conectarse a la base de datos local
+<<<<<<< HEAD
 connect_base = psycopg2.connect("host=localhost dbname=alterego2 user=postgres port=5432 password=Basket052012")
+=======
+connect_base = psycopg2.connect("host=localhost dbname=Proyecto_3 user=postgres port=5432 password=1234")
+>>>>>>> 511a95de55c311517f3f3bf5a757d17fa2443bec
 cursor = connect_base.cursor(cursor_factory=psycopg2.extras.DictCursor)
 #-------------------------------------------------------------------------------------------------------------------
 
@@ -422,6 +426,12 @@ def Delete_Director(id):
   cursor.execute(queryDA, DatoDA)
   connect_base.commit()
 
+def Delete_Favoritos(perfil, pelicula):
+  DatoDA = (perfil, pelicula)
+  queryDA = "DELETE FROM favoritos_perfil WHERE codigo_perfil = %s and codigo_pelicula = %s"
+  cursor.execute(queryDA, DatoDA)
+  connect_base.commit()
+
 def Desactivar_Usuarios(nuevoEstado, correo):
   DatoDU = (nuevoEstado, correo,)
   queryDU = "UPDATE cuenta SET estado = %s where correo = %s"
@@ -446,6 +456,17 @@ def Get_Cuenta(correo):
   cuenta = cursor.fetchone()
   connect_base.commit()
   return cuenta
+
+def Get_if_favorito(perfil, pelicula):
+  DatosGiF = (perfil, pelicula)
+  query = "SELECT * FROM favoritos_perfil WHERE codigo_perfil = %s AND codigo_pelicula = %s;"
+  cursor.execute(query, DatosGiF)
+  res = cursor.fetchall()
+  connect_base.commit()
+  cant = 0
+  for x in res:
+    cant += 1
+  return cant
 
 def EndSesion(PerfilActual):
   Datos = (PerfilActual, )
