@@ -41,7 +41,7 @@ Genera un codigo Concatendando las primeras 3 letras del nombre
 def GenerarCodigo(entidad):
     #Obtener data de la base de datos
     cant = Gen_code(entidad)
-    codigo = str(entidad)[0:3] + str(cant)
+    codigo = str(entidad)[0:3].swapcase() + str(cant)
     return codigo
 
 '''
@@ -418,7 +418,7 @@ def Agregar_Anunciantes():
     Upload_Anunciantes(codigo_anunciante, nombre)
     print('Anunciante agregado con exito')
 
-def ModAnunciantes():
+def ModAnunciantes(usuario):
     permanecer = True
     while (permanecer):
         try:
@@ -476,6 +476,7 @@ def ModAnunciantes():
                                     '''
                                     Mod_Anunciantes('nombre', nuevoDato, cod_an)
                                     print('Anunciante modificado exitosamente')
+                                    UploadBitacora(usuario)
                                     permanecer3 = False
                                     permanecer2 = False
                                     
@@ -584,7 +585,7 @@ def Agregar_Anuncios():
             if (op == 'n'):
                 permanecer = False
 
-def ModAnuncios():
+def ModAnuncios(usuario):
     permanecer = True
     while (permanecer):
         try:
@@ -644,6 +645,7 @@ def ModAnuncios():
                                     '''
                                     Mod_Anuncios('contenidopromocional', nuevoDato, cod_an)
                                     print('Anuncio modificado exitosamente')
+                                    UploadBitacora(usuario)
                                     permanecer3 = False
                                     permanecer2 = False
                                 elif (dato_mod == 2):
@@ -929,7 +931,7 @@ def reporte_5():
 
     return 2
 
-def Mod_Actores():
+def Mod_Actores(usuario):
     permanecer = True
     while (permanecer):
         try:
@@ -988,6 +990,7 @@ def Mod_Actores():
                             Upload_Actores(codigo_actor, actor)
 
                             print('Actor ingresado exitosamente')
+                            UploadBitacora(usuario)
                             verificar_actor = False
                         else:
                             verificar_actor = False
@@ -1016,6 +1019,7 @@ def Mod_Actores():
                                     '''
                                     Mod_ActoresN('nombre', nuevoDato, cod_an)
                                     print('Actor modificado exitosamente')
+                                    UploadBitacora(usuario)
                                     permanecer3 = False
                                     permanecer2 = False
                                     
@@ -1057,6 +1061,7 @@ def Mod_Actores():
                                     permanecer2 = False
                                     permanecer3 = False
                                     escritura_lenta('El actor fue eliminado exitosamente')
+                                    UploadBitacora(usuario)
                                 elif (conf == 'n'):
                                     # Cancelar
                                     permanecer2 = False
@@ -1082,7 +1087,7 @@ def Mod_Actores():
             escritura_lenta('Ingrese una respuesta valida\n')
             print(err)
     
-def Mod_Directores():
+def Mod_Directores(usuario):
     permanecer = True
     while (permanecer):
         try:
@@ -1141,6 +1146,7 @@ def Mod_Directores():
                             Upload_Directores(codigo_director, director)
 
                             print('Actor ingresado exitosamente')
+                            UploadBitacora(usuario)
                             verificar_director = False
                         else:
                             verificar_director = False
@@ -1169,6 +1175,7 @@ def Mod_Directores():
                                     '''
                                     Mod_DirectoresN('nombre', nuevoDato, cod_an)
                                     print('Director modificado exitosamente')
+                                    UploadBitacora(usuario)
                                     permanecer3 = False
                                     permanecer2 = False
                                     
@@ -1209,6 +1216,7 @@ def Mod_Directores():
                                     permanecer2 = False
                                     permanecer3 = False
                                     escritura_lenta('El director fue eliminado exitosamente')
+                                    UploadBitacora(usuario)
                                 elif (conf == 'n'):
                                     # Cancelar
                                     permanecer2 = False
@@ -1233,7 +1241,7 @@ def Mod_Directores():
         except:
             escritura_lenta('Ingrese una respuesta valida\n')  
 
-def Mod_Perfiles():
+def Mod_Perfiles(usuario):
     veri = True
     while (veri):
         try:
@@ -1309,6 +1317,7 @@ def Mod_Perfiles():
                                                         '''
                                                         Mod_perfil(nuevoDato, cod_per, correo_u)
                                                         print('Perfil modificado exitosamente')
+                                                        UploadBitacora(usuario)
                                                         permanecer5 = False
                                                         permanecer4 = False
                                                         permanecer3 = False
@@ -1518,7 +1527,7 @@ def Mod_Premiaciones():
             print(err)
             escritura_lenta('Error: Ingrese una respuesta valida')
             
-def Mod_Correos():
+def Mod_Correos(usuario):
     veri = True
     while (veri):
         try:
@@ -1574,6 +1583,7 @@ def Mod_Correos():
                                         '''
                                         Mod_CorreoU(nuevoDato, correo_u)
                                         print('Correo modificado exitosamente')
+                                        UploadBitacora(usuario)
                                         permanecer3 = False
                                         permanecer2 = False
                                         
@@ -1626,31 +1636,30 @@ def Modificaciones_Admin(usuario):
                 UploadBitacora(usuario)
             elif (opc == 2):
                 # Modificar actores
-                Mod_Actores()
-                UploadBitacora(usuario)
+                Mod_Actores(usuario)
+                
             elif (opc == 3):
                 # Modificar directores
-                Mod_Directores()
-                UploadBitacora(usuario)
+                Mod_Directores(usuario)
+
             elif (opc == 4):
                 # Modificar perfiles
-                Mod_Perfiles()
-                UploadBitacora(usuario)
+                Mod_Perfiles(usuario)
+
             elif (opc == 5):
                 # Modificar anunciantes
-                ModAnunciantes()
-                UploadBitacora(usuario)
+                ModAnunciantes(usuario)
+
             elif (opc == 6):
                 # Modificar Anuncios
-                ModAnuncios()
-                UploadBitacora(usuario)
+                ModAnuncios(usuario)
+
             elif (opc == 7):
                 # Modificar premiaciones
                 Mod_Premiaciones()
             elif (opc == 8):
                 # Modificar correos
                 Mod_Correos()
-                UploadBitacora(usuario)
             elif (opc == 9):
                 permanecer = False
             else:
