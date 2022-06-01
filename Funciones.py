@@ -56,7 +56,7 @@ def open_link(link):
 
 def GenerarCodigo2(entidad):
   #Obtener data de la base de datos
-  cant = Gen_code(entidad)
+  cant = Gen_codeNEW(entidad)
   codigo = str(entidad)[0:3] + str(cant)
   return codigo
   

@@ -41,7 +41,7 @@ Genera un codigo Concatendando las primeras 3 letras del nombre
 def GenerarCodigo(entidad):
     #Obtener data de la base de datos
     cant = Gen_code(entidad)
-    codigo = str(entidad)[0:3].swapcase() + str(cant)
+    codigo = str(entidad)[0:3] + str(cant)
     return codigo
 
 '''

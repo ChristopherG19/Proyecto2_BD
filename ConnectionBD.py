@@ -17,7 +17,7 @@ import random
 
 #--------------------------------------------------- IMPORTANTE ---------------------------------------------------
 #Cambiar estos valores para poder conectarse a la base de datos local
-connect_base = psycopg2.connect("host=localhost dbname=Proyecto_3_V2 user=postgres port=5432 password=Basededatos2022")
+connect_base = psycopg2.connect("host=localhost dbname=Proyecto_3 user=postgres port=5432 password=1234")
 cursor = connect_base.cursor(cursor_factory=psycopg2.extras.DictCursor)
 #-------------------------------------------------------------------------------------------------------------------
 
@@ -305,9 +305,22 @@ def Conseguir_Data(entidad, offset):
 def Gen_code(entidad):
   queryGC = f"SELECT COUNT(*) FROM {entidad}"
   cursor.execute(queryGC)
-  data = cursor.fetchone()
+  data = (cursor.fetchone())
+  datatemp = str(data)
+  datatemp2 = datatemp.strip('[').strip(']')
+  data_int = int(datatemp2)
+  ver = True
+  while (ver):
+    codigo = str(entidad)[0:3] + str([data_int])
+    queryVer = f"SELECT * FROM {entidad} where codigo = '{codigo}'"
+    cursor.execute(queryVer)
+    retorno = cursor.fetchone()
+    if (retorno):
+      data_int += 1
+    else:
+      ver = False
   connect_base.commit()
-  return data
+  return [data_int]
 
 def Modificar_Pelicula(columna, nuevo_dato, id):
   queryMP = f"UPDATE peliculas SET {columna} = {repr(nuevo_dato)} WHERE codigo = {repr(id)}"
