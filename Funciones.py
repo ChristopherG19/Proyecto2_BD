@@ -69,7 +69,7 @@ def escritura_lenta(frase):
   for i in frase:
     sys.stdout.write(i)
     sys.stdout.flush()
-    time.sleep(0.01)
+    time.sleep(0)
 
 #Programación defensiva para la solicitud de opciones
 def SolicitudNum():
@@ -548,6 +548,40 @@ def Gen_hora():
   hora_f = str(hora) + ':' + str(min) + ':' + str(seg)
   
   return hora_f
+
+def GenFechaRepro(year, mes, dia):
+  meses30 = [4,6,9,11]
+  meses31 = [1,3,5,7,8,10,12]
+  meses28 = [2]
+
+  newmonth = random.randint(int(mes), 12)
+    
+  newday = 0
+  if (int(mes) == newmonth):
+    # Se tiene que verificar que se termine de ver el mismo día, o los que restan del mes
+    if (newmonth in meses30):
+      newday = random.randint(int(dia), 30)
+    elif (newmonth in meses31):
+      newday = random.randint(int(dia), 31)
+    elif (newmonth in meses28):
+      newday = random.randint(int(dia), 28)
+  else:
+    if (newmonth in meses30):
+      newday = random.randint(1, 30)
+    elif (newmonth in meses31):
+      newday = random.randint(1, 31)
+    elif (newmonth in meses28):
+      newday = random.randint(1, 28)
+ 
+  if(newmonth >= 0 & newmonth < 10):
+    newmonth = str(newmonth).rjust(2, '0')
+  
+  if(newday >= 0 & newday < 10):
+    newday = str(newday).rjust(2, '0')
+  
+  fechaF = str(year)+'-'+str(newmonth)+'-'+str(newday)
+  
+  return fechaF 
  
 def Gen_FechaFin(fecha):
   fechaS = fecha.split('-')
