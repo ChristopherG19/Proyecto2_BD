@@ -173,9 +173,11 @@ while not Salir:
       md5_hash = hashlib.md5()
       md5_hash.update(contra.encode())
       contra = md5_hash.hexdigest()
+      IsActive = Get_AdminActive(usuario)
       #Se verifica que el usuario administrador este en la base de datos y luego se le permita entrar
       while (verificador):
-        if(LogInAdmin(usuario, contra) != None):
+        if(LogInAdmin(usuario, contra) != None and IsActive == False):
+          Mod_active_admin(True, usuario)
           Nombre = LogInAdmin(usuario,contra)
           print('Ingreso exitoso, bienvenido/a ', Nombre) 
           print('Pulse enter para continuar\n')
@@ -198,7 +200,7 @@ while not Salir:
             print('\n8) Agregar anuncios')
             print('9) Eliminar anuncios')
             print('\n10) Reportes pasados')
-            print('11) Agregar administradores')
+            print('11) Opciones administradores')
             print('\n12) Simulacion de visualizaciones')
             print('13) Simulacion de busquedas')
             print('14) Reportes nuevos')
@@ -283,8 +285,7 @@ while not Salir:
                   ver_op12 = False
 
             elif (op1 == '11'):
-              Agregar_Admins()
-              UploadBitacora(usuario)
+              Modifi_Admins(usuario)
               
             elif (op1 == '12'):
               # Simulación de visualizaciones
@@ -299,12 +300,17 @@ while not Salir:
             
             elif (op1 == '15'):
               #Cerrar sesion
+              Mod_active_admin(False, usuario)
               usuario = ""
               contra = ""
               menu_admin_L1 = False
               verificador = False
               menu_admin_L2 = False
-
+        
+        elif (IsActive == True):
+          print("\nLo sentimos, administrador en linea actualmente\n")
+          verificador = False
+        
         #Si el usuario administrador no se registra correctamente se le indica si quiere seguir intentando
         else:
           escritura_lenta("Usuario o contraseña incorrecta")

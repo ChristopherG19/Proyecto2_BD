@@ -47,9 +47,9 @@ def Upload_Peliculas(CodigoPl, Titulo, Genero, yearEstreno, Duracion):
   cursor.execute(Query, DatosPl)
   connect_base.commit() 
   
-def Upload_Administradores (CodigoAdmin, NombreAdmin, Contra):
-  DatosAdmin = (CodigoAdmin, NombreAdmin, Contra)
-  Query = "INSERT INTO Administradores VALUES (%s, %s, %s)"
+def Upload_Administradores (CodigoAdmin, NombreAdmin, Contra, active):
+  DatosAdmin = (CodigoAdmin, NombreAdmin, Contra, active)
+  Query = "INSERT INTO Administradores VALUES (%s, %s, %s, %s)"
   cursor.execute(Query, DatosAdmin)
   connect_base.commit() 
   
@@ -361,6 +361,12 @@ def Mod_active(isActive, perfil):
   queryMU = "UPDATE perfiles SET activo = %s WHERE nombre_perfil = %s"
   cursor.execute(queryMU, DatosMU)
   connect_base.commit()
+  
+def Mod_active_admin(isActive, code):
+  DatosMU = (isActive, code,)
+  queryMU = "UPDATE administradores SET activo = %s WHERE codigo = %s"
+  cursor.execute(queryMU, DatosMU)
+  connect_base.commit()
 
 def Mod_premiaciones(columna, nuevo_dato, codigo_peli, col1, val1, col2, val2):
   DatosMP = (columna, nuevo_dato, codigo_peli, col1, val1, col2, val2)
@@ -626,6 +632,37 @@ def Get_PerfilActive(correo, PerfilActual):
     return data
   else:
     return data['activo']
+  
+def Get_AdminActive(code):
+  Dato = (code,)
+  query = "SELECT * FROM administradores a WHERE codigo = %s"
+  cursor.execute(query, Dato)
+  data = cursor.fetchone()
+  connect_base.commit()
+  if data == None:
+    return data
+  else:
+    return data['activo']
+  
+def Get_Admin(code):
+  Dato = (code,)
+  query = "SELECT * FROM administradores a WHERE codigo = %s"
+  cursor.execute(query, Dato)
+  data = cursor.fetchone()
+  connect_base.commit()
+  return data
+
+def DeleteAdmin(code):
+  Dato = (code,)
+  query = "DELETE FROM administradores WHERE codigo = %s AND activo = FALSE"
+  cursor.execute(query, Dato)
+  connect_base.commit()
+  
+def UpdateNameAdmin(NewN, code):
+  Dato = (NewN, code,)
+  query = "UPDATE administradores SET nombre = %s WHERE codigo = %s"
+  cursor.execute(query, Dato) 
+  connect_base.commit()
 
 def Get_PerfilesInfo(correo):
   Dato = (correo,)

@@ -17,6 +17,8 @@ import re
 import hashlib
 #Librería para ocultar password
 from getpass import getpass
+
+from numpy import False_
 #Otros documentos
 from ConnectionBD import *
 #Import tiempos
@@ -512,6 +514,110 @@ def SolicitudNum3(frase):
       print("Error, ingrese opcion valida")
   return num
 
+def Modifi_Admins(usuario):
+  veri = True
+  while (veri):
+    try:
+        escritura_lenta('\n¿Que desea hacer primero?: ')
+        escritura_lenta('1) Ver administradores')
+        escritura_lenta('2) Agregar administradores')
+        escritura_lenta('3) Modificar administradores')
+        escritura_lenta('4) Eliminar administradores')
+        escritura_lenta('5) Cancelar\n')
+        print()
+        op = int(input('Opcion: '))
+        
+        if (op == 1):
+          permanecer2 = True
+          offset = 0
+          pag = 1
+          escritura_lenta("Administradores\n")
+          while(permanecer2):
+              if(offset >= 0):
+                  obtenerData2('Administradores', offset)
+                  escritura_lenta('Página: '+ str(pag))
+                  escritura_lenta('Avanzar(a)/Retroceder(d)/salir(l): ')
+                  siguiente = input('(a/d/l): ')
+                  if (siguiente == 'a'):
+                      offset += 10
+                      pag += 1
+                  elif (siguiente == 'd'):
+                      offset -= 10
+                      pag -= 1
+                  elif (siguiente == 'l'):
+                      permanecer2 = False
+                  else:
+                      escritura_lenta('La opción ingresada no es válida')
+              else:
+                  #Corregir el offset y evitar que este se convierta en 0
+                  offset = 0
+                  pag = 1
+                  
+        elif (op == 2):
+          Agregar_Admins()
+          print('Administrador agregado exitosamente')
+          
+        elif (op == 3):
+          Modi_Admins_NC()
+          
+        elif (op == 4):
+          Delete_Admins(usuario)
+          
+        elif (op == 5):
+          veri = False
+          
+        else:
+          escritura_lenta('Opcion invalida\n')
+        
+    except ValueError:
+      print('Error, opcion invalida')
+        
+def Delete_Admins(usuario):
+  veri = True
+  while(veri):
+    try:
+      codigo_adm = input('Codigo: ')
+      IsActive = Get_AdminActive(codigo_adm)
+      if (Get_Admin(codigo_adm) and codigo_adm != usuario and IsActive == False):
+        permanecer3 = True
+        while (permanecer3):
+            try:
+                escritura_lenta('Seguro que desea eliminar al administrador?')
+
+                conf = input('(y/n): ')
+                if (conf == 'y'):
+                    # Eliminar 
+                    DeleteAdmin(codigo_adm)
+                    veri = False
+                    permanecer3 = False
+                    escritura_lenta('El administrador fue eliminado exitosamente')
+                elif (conf == 'n'):
+                    # Cancelar
+                    veri = False
+                    permanecer3 = False
+                else:
+                    print('Ingrese una opcion valida')
+
+            except Exception as ex:
+                print(ex)
+                escritura_lenta('Ingrese una opcion valida')
+      elif (codigo_adm == usuario):
+        print('No puedes eliminar tu propia cuenta')
+        veri = False
+      elif (IsActive):  
+        print('Administrador en linea')
+        veri = False
+      else:
+          #no existe
+          escritura_lenta('El administrador ingresado no existe')
+          escritura_lenta('Desea volver a escribir el codigo? (y/n)')
+          op = input('(y/n): ')
+          if (op == 'n'):
+            veri = False
+      
+    except ValueError:
+      print("Error, ingrese datos validos")
+
 def Agregar_Admins():
   veri = True
   while(veri):
@@ -525,8 +631,54 @@ def Agregar_Admins():
       md5_hash.update(contraAd.encode())
       #print(md5_hash.hexdigest())
       contraAd = md5_hash.hexdigest()    
-      Upload_Administradores(codigoAd, nombreAd, contraAd)
+      Upload_Administradores(codigoAd, nombreAd, contraAd, False)
       veri = False
+    except ValueError:
+      print("Error, ingrese datos validos")
+
+def Modi_Admins_NC():
+  veri = True
+  while(veri):
+    try:
+      codigo_adm = input('Codigo: ')
+      if (Get_Admin(codigo_adm) ):
+        permanecer3 = True
+        while (permanecer3):
+            try:
+                print('\nQue deseas hacer?')
+                print('1) Modificar nombre')
+                print('2) Modificar contrasena')
+                print('3) Salir\n')
+                
+                op = int(input('Opcion: '))
+                
+                if (op == 1):
+                  print()
+                  NuevoN = input('Nombre Nuevo: ')
+                  UpdateNameAdmin(NuevoN, codigo_adm)
+                  print('Nombre modificado exitosamente')
+                  
+                elif (op == 2):
+                  print()
+                  0
+                elif (op == 3):
+                  permanecer3 = False
+                  veri = False
+                else:
+                  print('Opcion invalida')
+                  print()
+                  
+            except Exception as ex:
+                print(ex)
+                escritura_lenta('Ingrese una opcion valida')
+      else:
+          #no existe
+          escritura_lenta('El administrador ingresado no existe')
+          escritura_lenta('Desea volver a escribir el codigo? ')
+          op = input('(y/n): ')
+          if (op == 'n'):
+            veri = False
+      
     except ValueError:
       print("Error, ingrese datos validos")
 
