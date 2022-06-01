@@ -17,7 +17,7 @@ import random
 
 #--------------------------------------------------- IMPORTANTE ---------------------------------------------------
 #Cambiar estos valores para poder conectarse a la base de datos local
-connect_base = psycopg2.connect("host=localhost dbname=Proyecto_3 user=postgres port=5432 password=1234")
+connect_base = psycopg2.connect("host=localhost dbname=Proyecto_3_V2 user=postgres port=5432 password=Basededatos2022")
 cursor = connect_base.cursor(cursor_factory=psycopg2.extras.DictCursor)
 #-------------------------------------------------------------------------------------------------------------------
 
@@ -349,6 +349,12 @@ def Mod_Usuarios(nueva_sus, correo):
 def Mod_Contraseña(nueva_contraseña, correo):
   DatosMU = (nueva_contraseña, correo,)
   queryMU = "UPDATE cuenta SET contrasena = %s WHERE correo = %s"
+  cursor.execute(queryMU, DatosMU)
+  connect_base.commit()
+  
+def Mod_ContraseñaAdmin(nueva_contraseña, code):
+  DatosMU = (nueva_contraseña, code,)
+  queryMU = "UPDATE administradores SET contrasena = %s WHERE codigo = %s"
   cursor.execute(queryMU, DatosMU)
   connect_base.commit()
   

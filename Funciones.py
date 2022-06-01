@@ -521,9 +521,10 @@ def Modifi_Admins(usuario):
         escritura_lenta('\n¿Que desea hacer primero?: ')
         escritura_lenta('1) Ver administradores')
         escritura_lenta('2) Agregar administradores')
-        escritura_lenta('3) Modificar administradores')
-        escritura_lenta('4) Eliminar administradores')
-        escritura_lenta('5) Cancelar\n')
+        escritura_lenta('3) Modificar nombre administradores')
+        escritura_lenta('4) Modificar contrasena propia')
+        escritura_lenta('5) Eliminar administradores')
+        escritura_lenta('6) Cancelar\n')
         print()
         op = int(input('Opcion: '))
         
@@ -559,11 +560,14 @@ def Modifi_Admins(usuario):
           
         elif (op == 3):
           Modi_Admins_NC()
-          
+        
         elif (op == 4):
+          ChangePasswordMe(usuario)
+        
+        elif (op == 5):
           Delete_Admins(usuario)
           
-        elif (op == 5):
+        elif (op == 6):
           veri = False
           
         else:
@@ -647,8 +651,7 @@ def Modi_Admins_NC():
             try:
                 print('\nQue deseas hacer?')
                 print('1) Modificar nombre')
-                print('2) Modificar contrasena')
-                print('3) Salir\n')
+                print('2) Salir\n')
                 
                 op = int(input('Opcion: '))
                 
@@ -659,9 +662,6 @@ def Modi_Admins_NC():
                   print('Nombre modificado exitosamente')
                   
                 elif (op == 2):
-                  print()
-                  0
-                elif (op == 3):
                   permanecer3 = False
                   veri = False
                 else:
@@ -681,6 +681,43 @@ def Modi_Admins_NC():
       
     except ValueError:
       print("Error, ingrese datos validos")
+
+def ChangePasswordMe(usuario):
+  print()
+  ver_contrasena2 = True 
+  while (ver_contrasena2):
+    contraActual = getpass('Contraseña actual: ')
+    md5_hash = hashlib.md5()
+    md5_hash.update(contraActual.encode())
+    contraActual = md5_hash.hexdigest()
+
+    #verificarla
+    if (LogInAdmin(usuario, contraActual)):
+      # Proseguir
+      escritura_lenta('Ingrese la nueva contraseña ')
+      contraNueva = getpass('\nNueva contraseña: ')
+      contraNueva2 = getpass('\nIngresela nuevamente: ')
+
+      if (contraNueva == contraNueva2):
+        ''''''
+        md5_hash = hashlib.md5()
+        md5_hash.update(contraNueva.encode())
+        contraNueva = md5_hash.hexdigest()
+
+        Mod_ContraseñaAdmin(contraNueva, usuario)
+
+        ver_contrasena2 = False
+      else:
+        print('Error, las contraseñas son distintas')
+
+    else: 
+      # Contraseña ingresada incorrectamente
+      escritura_lenta('Contraseña ingresada incorrectamente')
+      escritura_lenta('Desea probar nuevamente?')
+      ooop = input('(s/n): ')
+      if (ooop == 'n'):
+        # Cancelar
+        ver_contrasena2 = False
 
 def Gen_hora():
 
