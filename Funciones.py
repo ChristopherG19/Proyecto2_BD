@@ -71,7 +71,7 @@ def escritura_lenta(frase):
   for i in frase:
     sys.stdout.write(i)
     sys.stdout.flush()
-    time.sleep(0)
+    time.sleep(0.01)
 
 #Programación defensiva para la solicitud de opciones
 def SolicitudNum():

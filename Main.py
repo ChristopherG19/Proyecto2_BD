@@ -21,7 +21,13 @@ opcion = 0
 
 #Impresion menu principal y toma de decision
 while not Salir:
-  escritura_lenta("\n\t\t\t\tMenu\n")
+  
+  escritura_lenta('\n\t ----------------------------------------')
+  escritura_lenta('\t|                                       |')
+  escritura_lenta('\t|  Bienvenue sur la plateforme Nesflis  |')
+  escritura_lenta('\t|                                       |')
+  escritura_lenta('\t ----------------------------------------')
+  escritura_lenta("\nMenu")
   escritura_lenta("1) Crear cuenta")
   escritura_lenta("2) Ingresar")
   escritura_lenta("3) Ingresar como Admin")
