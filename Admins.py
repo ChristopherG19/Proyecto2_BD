@@ -1659,7 +1659,7 @@ def Modificaciones_Admin(usuario):
                 Mod_Premiaciones()
             elif (opc == 8):
                 # Modificar correos
-                Mod_Correos()
+                Mod_Correos(usuario)
             elif (opc == 9):
                 permanecer = False
             else:
