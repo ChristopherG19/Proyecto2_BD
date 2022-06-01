@@ -73,6 +73,58 @@ while not Salir:
       if(LogIn(Correo, Contra) != None and LogIn(Correo, Contra) == True):
         escritura_lenta("Ingreso exitoso\n")
         ManejoPerfiles(Correo)
+
+        # Dar opción para cambiar contraseña
+        ver_contrasena = True
+        while (ver_contrasena):
+          escritura_lenta("Desea modificar la contraseña antes de continuar?")
+          opModCon = input('(s/n): ')
+          if (opModCon == 's'):
+            # Modificar la contraseña
+
+            #Verificar la contraseña
+            ver_contrasena2 = True 
+            while (ver_contrasena2):
+              contraActual = getpass('\nContraseña actual: ')
+              md5_hash = hashlib.md5()
+              md5_hash.update(contraActual.encode())
+              contraActual = md5_hash.hexdigest()
+
+              #verificarla
+              if (LogIn(Correo, contraActual)):
+                # Proseguir
+                escritura_lenta('Ingrese la nueva contraseña ')
+                contraNueva = getpass('\nNueva contraseña: ')
+                contraNueva2 = getpass('\nIngresela nuevamente: ')
+
+                if (contraNueva == contraNueva2):
+                  ''''''
+                  md5_hash = hashlib.md5()
+                  md5_hash.update(contraNueva.encode())
+                  contraNueva = md5_hash.hexdigest()
+
+                  Mod_Contraseña(contraNueva, Correo)
+
+                  ver_contrasena2 = False
+                else:
+                  print('Error, las contraseñas son distintas')
+
+              else: 
+                # Contraseña ingresada incorrectamente
+                escritura_lenta('Contraseña ingresada incorrectamente')
+                escritura_lenta('Desea probar nuevamente?')
+                ooop = input('(s/n): ')
+                if (ooop == 'n'):
+                  # Cancelar
+                  ver_contrasena2 = False
+
+            ver_contrasena = False
+
+          elif (opModCon == 'n'):
+            # no modificar la contraseña
+            ver_contrasena = False
+          else:
+            print("La respuesta ingresada no es valida")
         
         perfilActivo = SeleccionPerfiles(Correo)
 
