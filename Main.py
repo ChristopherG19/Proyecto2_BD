@@ -142,9 +142,16 @@ while not Salir:
         SearchPer(Get_CodigoPerfil(Correo, PerfilActual))
 
       elif (seleccion==8):
+        cant = Get_Perfiles(Correo)
         if (Get_Sub(Correo) == "Gratis"):
           print("\nLo sentimos, no puedes cambiar de perfil")
           print("El tipo de cuenta no lo permite")
+        elif (Get_Sub(Correo) == "Estandar" and cant == 1):
+          print("\nLo sentimos, no puedes cambiar de perfil")
+          print("No existe otro registrado. Al iniciar sesion intenta crear mas")
+        elif (Get_Sub(Correo) == "Avanzada" and cant == 1):
+          print("\nLo sentimos, no puedes cambiar de perfil")
+          print("No existe otro registrado. Al iniciar sesion intenta crear mas")
         else:
           PerfilActual = CambioPerfiles(Correo, PerfilActual)
         
