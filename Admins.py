@@ -756,6 +756,31 @@ Upgrade/Downgrade Usuarios
 def DownUpGrade_Usuarios():
     permanecer = True
     while (permanecer):
+        print('\n------------ Cuentas disponibles ------------\n')
+        permanecer2 = True
+        offset = 0
+        pag = 1
+        while(permanecer2):
+            if(offset >= 0):
+                Get_Correos('cuenta', offset)
+                escritura_lenta('Pagina: '+str(pag))
+                escritura_lenta('Avanzar(a)/Retroceder(d)/salir(l): ')
+                siguiente = input('(a/d/l): ')
+                if (siguiente == 'a'):
+                    offset += 10
+                    pag += 1
+                elif (siguiente == 'd'):
+                    offset -= 10
+                    pag -= 1
+                elif (siguiente == 'l'):
+                    permanecer2 = False
+                else:
+                    escritura_lenta('La opcion ingresada no es valida')
+            else:
+                #Corregir el offset y evitar que este se convierta en 0
+                offset = 0
+                pag = 1
+        print()
         escritura_lenta('Ingrese el correo de la cuenta que desea modificar\n')
         correo = input('Correo: ')
         if (Correo_Validacion(correo)):
@@ -1147,7 +1172,7 @@ def Mod_Directores(usuario):
                             # Insertar en la base de datos
                             Upload_Directores(codigo_director, director)
 
-                            print('Actor ingresado exitosamente')
+                            print('Director ingresado exitosamente')
                             UploadBitacora(usuario)
                             verificar_director = False
                         else:
@@ -1504,6 +1529,7 @@ def Mod_Premiaciones():
             elif(op == '5'):
                 #Eliminar una premiacion
                 escritura_lenta("Por favor ingrese los datos que a continuación se le solicitaran")
+                print()
                 codigo_pelicula = input("Codigo de la pelicula: ")
                 premiacion = input("Premiacion: ")
                 reconocimiento = input("Reconocimiento: ")

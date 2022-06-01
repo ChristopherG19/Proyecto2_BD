@@ -529,30 +529,7 @@ def Modifi_Admins(usuario):
         op = int(input('Opcion: '))
         
         if (op == 1):
-          permanecer2 = True
-          offset = 0
-          pag = 1
-          escritura_lenta("Administradores\n")
-          while(permanecer2):
-              if(offset >= 0):
-                  obtenerData2('Administradores', offset)
-                  escritura_lenta('Página: '+ str(pag))
-                  escritura_lenta('Avanzar(a)/Retroceder(d)/salir(l): ')
-                  siguiente = input('(a/d/l): ')
-                  if (siguiente == 'a'):
-                      offset += 10
-                      pag += 1
-                  elif (siguiente == 'd'):
-                      offset -= 10
-                      pag -= 1
-                  elif (siguiente == 'l'):
-                      permanecer2 = False
-                  else:
-                      escritura_lenta('La opción ingresada no es válida')
-              else:
-                  #Corregir el offset y evitar que este se convierta en 0
-                  offset = 0
-                  pag = 1
+          Get_AdminsCodes()
                   
         elif (op == 2):
           Agregar_Admins()

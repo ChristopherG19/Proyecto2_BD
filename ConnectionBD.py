@@ -701,6 +701,17 @@ def Get_PerfilesInfo2(correo):
     print("----------------------------------")
   connect_base.commit()
   
+def Get_AdminsCodes():
+  query = "SELECT * FROM administradores"
+  cursor.execute(query)
+  data = cursor.fetchall()
+  for row in data:
+    print("----------------------------------------------")
+    print("Codigo: ", row[0])
+    print("Nombre Administrador: ", row[1])
+    print("----------------------------------------------")
+  connect_base.commit()
+  
 def Get_PerfilCode(correo, cod):
   Dato = (correo, cod,)
   query = "SELECT * FROM perfiles p JOIN cuenta_perfiles cp ON cp.codigo_perfil = p.codigo AND correo_cuenta = %s WHERE p.codigo = %s AND p.estado = 'TRUE'"
